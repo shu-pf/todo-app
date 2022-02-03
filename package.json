@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "fmt": "prettier --write"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -24,6 +25,8 @@
     "eslint-config-next": "12.0.10",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.0",
+    "lint-staged": ">=10",
+    "prettier": "2.5.1",
     "typescript": "4.5.5"
   }
 }
