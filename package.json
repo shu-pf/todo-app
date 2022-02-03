@@ -22,11 +22,8 @@
     "boxen": "^6.2.1",
     "eslint": "8.8.0",
     "eslint-config-next": "12.0.10",
-<<<<<<< HEAD
     "eslint-config-prettier": "^8.3.0",
-=======
     "husky": "^7.0.0",
->>>>>>> 8e2b722 (feat: huskyによるコミット名のプリフィックスチェックを追加)
     "typescript": "4.5.5"
   }
 }
