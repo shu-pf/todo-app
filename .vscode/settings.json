@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["customreact", "Vercel"]
+  "cSpell.words": ["customreact", "Vercel"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
