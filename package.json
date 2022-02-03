@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "fmt": "prettier --write"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
