@@ -3,10 +3,12 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Button } from '../components/common/Button';
 
-export default {
+const meta: ComponentMeta<typeof Button> = {
   title: 'Button',
   component: Button,
-} as ComponentMeta<typeof Button>;
+};
+
+export default meta;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
