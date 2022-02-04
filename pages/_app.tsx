@@ -1,21 +1,11 @@
-import '../styles/globals.css';
+import { GlobalStyle } from '../styles/globals';
 import type { AppProps } from 'next/app';
-import { Global, css } from '@emotion/react';
-import restCss from 'ress';
+import { Global } from '@emotion/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Global
-        styles={css(`
-          ${restCss}
-          body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-          }
-        `)}
-      />
+      <Global styles={GlobalStyle} />
       <Component {...pageProps} />
     </>
   );
