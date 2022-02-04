@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["customreact", "Vercel"],
+  "cSpell.words": ["customreact", "ress", "Vercel"],
+  "cSpell.ignorePaths": [
+    "yarn.lock",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders"
+  ],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
