@@ -2196,6 +2196,13 @@
   dependencies:
     lodash "^4.17.15"
 
+"@storybook/csf@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.0.1.tgz#95901507dc02f0bc6f9ac8ee1983e2fc5bb98ce6"
+  integrity sha512-USTLkZze5gkel8MYCujSRBVIrUQ3YPBrLOx7GNk/0wttvVtlzWXAq9eLbQ4p/NicGxP+3T7KPEMVV//g+yubpw==
+  dependencies:
+    lodash "^4.17.15"
+
 "@storybook/manager-webpack4@6.4.18":
   version "6.4.18"
   resolved "https://registry.yarnpkg.com/@storybook/manager-webpack4/-/manager-webpack4-6.4.18.tgz#5317c917dbdaf4cf8721647551a785eb13c04146"
@@ -2682,6 +2689,13 @@
     regexpp "^3.2.0"
     semver "^7.3.5"
     tsutils "^3.21.0"
+
+"@typescript-eslint/experimental-utils@^5.3.0":
+  version "5.10.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.10.2.tgz#dbb541e2070c7bd6e63d3e3a55b58be73a8fbb34"
+  integrity sha512-stRnIlxDduzxtaVLtEohESoXI1k7J6jvJHGyIkOT2pvXbg5whPM6f9tzJ51bJJxaJTdmvwgVFDNCopFRb2F5Gw==
+  dependencies:
+    "@typescript-eslint/utils" "5.10.2"
 
 "@typescript-eslint/parser@^5.0.0", "@typescript-eslint/parser@^5.10.2":
   version "5.10.2"
@@ -4991,6 +5005,15 @@ eslint-plugin-react@^7.27.0:
     resolve "^2.0.0-next.3"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
+
+eslint-plugin-storybook@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-0.5.6.tgz#10bce5933ad9ceec46cdf5ed5a81b50b33f73bf7"
+  integrity sha512-hxeydYXi0DZC80kV9wPz9pA9oG9GVdfNg9iXR/KhqnMdqZWCGQKsex05k4VlX52no7mm/sICjW/iKYtRqVkaaw==
+  dependencies:
+    "@storybook/csf" "^0.0.1"
+    "@typescript-eslint/experimental-utils" "^5.3.0"
+    requireindex "^1.1.0"
 
 eslint-scope@^4.0.3:
   version "4.0.3"
@@ -8854,6 +8877,11 @@ require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
   integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
+
+requireindex@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 resolve-from@^4.0.0:
   version "4.0.0"
