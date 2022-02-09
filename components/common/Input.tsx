@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from '@emotion/react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import _uniqueId from 'lodash/uniqueId';
+
 type InputProps = JSX.IntrinsicElements['input'];
 type Variant = 'default' | 'outlined';
 type Props = InputProps & { labelText: string; variant: Variant };
@@ -41,15 +43,20 @@ function style(theme: Theme) {
   };
 }
 
-export const Input = ({ labelText = '', variant = 'default', ...props }: Props) => {
-  const theme = useTheme();
+export const Input = ({ labelText = '', variant = 'default', id, ...props }: Props) => {
+  const [computedId] = useState(id ? id : _uniqueId('input-'));
 
+  const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
 
   return (
     <>
-      {labelText && <label css={serializedStyles[variant].label}>{labelText}</label>}
-      <input {...props} css={serializedStyles[variant].input} />
+      {labelText && (
+        <label htmlFor={computedId} css={serializedStyles[variant].label}>
+          {labelText}
+        </label>
+      )}
+      <input id={computedId} css={serializedStyles[variant].input} {...props} />
     </>
   );
 };
