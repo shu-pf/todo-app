@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Input } from '../components/common/Input';
 
 const meta: ComponentMeta<typeof Input> = {
-  title: 'Input',
+  title: 'component/common/Input',
   component: Input,
 };
 
