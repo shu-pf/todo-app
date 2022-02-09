@@ -5,9 +5,15 @@
     "plugin:storybook/recommended",
     "prettier"
   ],
-  "plugins": ["@emotion"],
+  "plugins": ["@emotion", "jest", "testing-library"],
   "rules": {
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
     "@emotion/pkg-renaming": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"]
+    }
+  ]
 }
