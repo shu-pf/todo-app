@@ -1,11 +1,12 @@
 {
   "extends": [
     "next/core-web-vitals",
+    "plugin:jest/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
     "prettier"
   ],
-  "plugins": ["@emotion"],
+  "plugins": ["@emotion", "jest"],
   "rules": {
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
     "@emotion/pkg-renaming": "error"
