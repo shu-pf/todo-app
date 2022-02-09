@@ -1,10 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Input } from '../components/common/Input';
+import { Input } from '../components/common/TextInput';
 
 const meta: ComponentMeta<typeof Input> = {
-  title: 'component/common/Input',
+  title: 'component/common/TextInput',
   component: Input,
 };
 
@@ -20,5 +20,4 @@ Primary.args = {
 export const Outlined = Template.bind({});
 Outlined.args = {
   variant: 'outlined',
-  labelText: 'Title',
 };
