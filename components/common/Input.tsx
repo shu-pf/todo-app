@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from '@emotion/react';
+import { css, Theme, useTheme } from '@emotion/react';
+import { useMemo } from 'react';
 type InputProps = JSX.IntrinsicElements['input'];
 type Variant = 'default' | 'outlined';
 type Props = InputProps & { labelText: string; variant: Variant };
 
-export const Input = ({ labelText = '', variant = 'default', ...props }: Props) => {
-  const theme = useTheme();
-
+function style(theme: Theme) {
   const baseStyle = {
     label: css`
       display: block;
@@ -20,7 +19,7 @@ export const Input = ({ labelText = '', variant = 'default', ...props }: Props) 
     `,
   };
 
-  const style = {
+  return {
     default: {
       label: baseStyle.label,
       input: [
@@ -40,11 +39,17 @@ export const Input = ({ labelText = '', variant = 'default', ...props }: Props) 
       ],
     },
   };
+}
+
+export const Input = ({ labelText = '', variant = 'default', ...props }: Props) => {
+  const theme = useTheme();
+
+  const serializedStyles = useMemo(() => style(theme), [theme]);
 
   return (
     <>
-      {labelText && <label css={style[variant].label}>{labelText}</label>}
-      <input {...props} css={style[variant].input} />
+      {labelText && <label css={serializedStyles[variant].label}>{labelText}</label>}
+      <input {...props} css={serializedStyles[variant].input} />
     </>
   );
 };
