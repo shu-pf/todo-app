@@ -29,6 +29,9 @@ export const defaultTheme: Theme = {
       navy40: 'rgba(0, 33, 77, 0.4)',
       pink70: 'rgba(255, 84, 112, 0.7)',
       red30: 'rgba(166, 57, 75, 0.3)',
+      pureWhite: '#FFF',
+      shadowBlack: 'rgba(0, 0, 0, 0.25)',
+      lighterLightGray: '#DADADA',
     },
   },
 };

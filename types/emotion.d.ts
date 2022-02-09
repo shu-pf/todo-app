@@ -30,6 +30,9 @@ declare module '@emotion/react' {
         navy40: string;
         pink70: string;
         red30: string;
+        pureWhite: string;
+        shadowBlack: string;
+        lighterLightGray: string;
       };
     };
   }

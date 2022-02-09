@@ -15,7 +15,7 @@ function style(theme: Theme) {
       color: ${theme.colors.text.navy};
     `,
     input: css`
-      background-color: #fff;
+      background-color: ${theme.colors.component.pureWhite};
       border-radius: 5px;
       padding: 12px;
     `,
@@ -27,7 +27,7 @@ function style(theme: Theme) {
       input: [
         baseStyle.input,
         css`
-          box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 13px ${theme.colors.component.shadowBlack};
         `,
       ],
     },
@@ -36,7 +36,7 @@ function style(theme: Theme) {
       input: [
         baseStyle.input,
         css`
-          border: 1px solid #dadada;
+          border: 1px solid ${theme.colors.component.lighterLightGray};
         `,
       ],
     },
