@@ -8,6 +8,7 @@
   "plugins": ["@emotion"],
   "rules": {
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
-    "@emotion/pkg-renaming": "error"
+    "@emotion/pkg-renaming": "error",
+    "no-param-reassign": "error"
   }
 }
