@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["customreact", "a-kawasumi", "ress", "unoptimized", "Vercel", "282Haniwa"],
+  "cSpell.words": [
+    "282Haniwa",
+    "a-kawasumi",
+    "customreact",
+    "ress",
+    "svgr",
+    "unoptimized",
+    "Vercel"
+  ],
   "cSpell.ignorePaths": [
     "yarn.lock",
     "node_modules",
