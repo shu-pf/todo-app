@@ -1,6 +1,4 @@
-import { Theme } from '@emotion/react';
-
-export const defaultTheme: Theme = {
+export const defaultTheme = {
   colors: {
     brand: {
       pink: '#FF5470',
@@ -34,4 +32,4 @@ export const defaultTheme: Theme = {
       lighterLightGray: '#DADADA',
     },
   },
-};
+} as const;
