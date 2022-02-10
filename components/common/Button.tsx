@@ -11,8 +11,8 @@ export const Button = ({ label, ...props }: ButtonProps) => {
   return (
     <button
       css={{
-        backgroundColor: theme.colors.green,
-        color: theme.colors.black,
+        backgroundColor: theme.colors.primary.green,
+        color: theme.colors.text.navy,
         borderRadius: '5px',
         fontSize: '14px',
         padding: '8px',
