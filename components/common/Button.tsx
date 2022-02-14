@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
 import { MouseEventHandler } from 'react';
-import Add from './icons/add.svg';
+import { Icon, IconNames } from './Icon';
 interface ButtonProps {
   label: string;
   variant?: 'primary' | 'error' | 'outlined' | 'underlined';
   shadow?: boolean;
   disabled?: boolean;
-  icon?: boolean;
+  icon?: IconNames;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -94,7 +94,7 @@ export const Button = ({
   label,
   shadow = false,
   variant = 'primary',
-  icon = false,
+  icon,
   ...props
 }: ButtonProps) => {
   return (
@@ -109,7 +109,8 @@ export const Button = ({
       {...props}
     >
       {icon && (
-        <Add
+        <Icon
+          name={icon}
           css={(theme: Theme) => [
             iconBaseStyle,
             iconVariantStyles(theme)[variant],

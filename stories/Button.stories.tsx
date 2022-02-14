@@ -43,5 +43,5 @@ export const Icon = Template.bind({});
 Icon.args = {
   label: 'Button',
   variant: 'primary',
-  icon: true,
+  icon: 'Add',
 };
