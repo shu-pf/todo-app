@@ -21,3 +21,9 @@ export const Outlined = Template.bind({});
 Outlined.args = {
   variant: 'outlined',
 };
+
+export const Password = Template.bind({});
+Password.args = {
+  placeholder: 'password',
+  type: 'password',
+};
