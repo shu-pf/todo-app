@@ -29,9 +29,9 @@ function style(theme: Theme) {
   };
 }
 
-export const TextInput = ({ variant = 'default', ...props }: Props) => {
+export const TextInput = ({ type = 'text', variant = 'default', ...props }: Props) => {
   const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
 
-  return <input type="text" css={serializedStyles[variant]} {...props} />;
+  return <input type={type} css={serializedStyles[variant]} {...props} />;
 };
