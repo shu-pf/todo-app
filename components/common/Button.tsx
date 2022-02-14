@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css, SerializedStyles, Theme, useTheme } from '@emotion/react';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { css, Theme } from '@emotion/react';
+import { MouseEventHandler } from 'react';
 import Add from './icons/add.svg';
 interface ButtonProps {
   label: string;
@@ -97,38 +97,26 @@ export const Button = ({
   icon = false,
   ...props
 }: ButtonProps) => {
-  const theme = useTheme();
-
-  const [buttonStyles, setButtonStyles] = useState<SerializedStyles[]>();
-
-  const [iconStyles, setIconStyles] = useState<SerializedStyles[]>();
-
-  useEffect(() => {
-    const buttonStyles = [btnBaseStyle];
-    const iconStyles = [iconBaseStyle];
-
-    if (props.disabled) {
-      buttonStyles.push(disabledBtnStyle(theme));
-      iconStyles.push(disabledIconStyle(theme));
-      setButtonStyles(buttonStyles);
-      setIconStyles(iconStyles);
-      return;
-    }
-
-    buttonStyles.push(btnVariantStyles(theme)[variant]);
-    iconStyles.push(iconVariantStyles(theme)[variant]);
-
-    if (shadow) {
-      buttonStyles.push(btnShadowStyle(theme));
-    }
-
-    setButtonStyles(buttonStyles);
-    setIconStyles(iconStyles);
-  }, [shadow, theme, variant, props.disabled]);
-
   return (
-    <button css={buttonStyles} type="button" {...props}>
-      {icon && <Add css={iconStyles} />}
+    <button
+      css={(theme: Theme) => [
+        btnBaseStyle,
+        btnVariantStyles(theme)[variant],
+        shadow && btnShadowStyle(theme),
+        props.disabled && disabledBtnStyle(theme),
+      ]}
+      type="button"
+      {...props}
+    >
+      {icon && (
+        <Add
+          css={(theme: Theme) => [
+            iconBaseStyle,
+            iconVariantStyles(theme)[variant],
+            props.disabled && disabledIconStyle(theme),
+          ]}
+        />
+      )}
       {label}
     </button>
   );
