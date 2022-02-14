@@ -1,16 +1,16 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Input } from '../components/common/TextInput';
+import { TextInput } from '../components/common/TextInput';
 
-const meta: ComponentMeta<typeof Input> = {
+const meta: ComponentMeta<typeof TextInput> = {
   title: 'component/common/TextInput',
-  component: Input,
+  component: TextInput,
 };
 
 export default meta;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+const Template: ComponentStory<typeof TextInput> = (args) => <TextInput {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
