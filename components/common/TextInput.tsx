@@ -29,7 +29,7 @@ function style(theme: Theme) {
   };
 }
 
-export const Input = ({ variant = 'default', ...props }: Props) => {
+export const TextInput = ({ variant = 'default', ...props }: Props) => {
   const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
 
