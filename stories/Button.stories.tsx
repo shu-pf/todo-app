@@ -6,6 +6,7 @@ import { Button } from '../components/common/Button';
 const meta: ComponentMeta<typeof Button> = {
   title: 'component/common/Button',
   component: Button,
+  argTypes: { onClick: { action: 'clicked' } },
 };
 
 export default meta;
@@ -36,4 +37,11 @@ Underlined.args = {
 };
 Underlined.parameters = {
   backgrounds: { default: 'dark' },
+};
+
+export const Icon = Template.bind({});
+Icon.args = {
+  label: 'Button',
+  variant: 'primary',
+  icon: true,
 };
