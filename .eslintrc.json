@@ -1,6 +1,6 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:storybook/recommended", "prettier"],
-  "plugins": ["@emotion", "jest", "testing-library"],
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["@emotion"],
   "rules": {
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
     "@emotion/pkg-renaming": "error",
@@ -9,13 +9,18 @@
   "overrides": [
     {
       "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
-      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"]
+      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"],
+      "plugins": ["jest", "testing-library"]
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": "plugin:@typescript-eslint/recommended",
       "parser": "@typescript-eslint/parser",
       "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+      "extends": ["plugin:storybook/recommended"]
     }
   ]
 }
