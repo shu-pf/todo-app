@@ -28,12 +28,21 @@ const btnShadowStyle = (theme: Theme) => css`
   box-shadow: 0px 0px 13px ${theme.colors.component.shadowBlack};
 `;
 
-const disabledBtnStyle = (theme: Theme) => {
-  return css`
-    color: ${theme.colors.component.gray};
-    background: ${theme.colors.component.lighterLightGray};
-    cursor: default;
-  `;
+const disabledBtnBaseStyle = (theme: Theme) => css`
+  color: ${theme.colors.component.gray};
+  background: ${theme.colors.component.lighterLightGray};
+  cursor: default;
+`;
+
+const disabledBtnStyles = (theme: Theme) => {
+  return {
+    primary: disabledBtnBaseStyle(theme),
+    error: disabledBtnBaseStyle(theme),
+    outlined: disabledBtnBaseStyle(theme),
+    underlined: css`
+      opacity: 0.7;
+    `,
+  };
 };
 
 const disabledIconStyle = (theme: Theme) => {
@@ -103,7 +112,7 @@ export const Button = ({
         btnBaseStyle,
         btnVariantStyles(theme)[variant],
         shadow && btnShadowStyle(theme),
-        props.disabled && disabledBtnStyle(theme),
+        props.disabled && disabledBtnStyles(theme)[variant],
       ]}
       type="button"
       {...props}
