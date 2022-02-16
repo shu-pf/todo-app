@@ -19,6 +19,7 @@ export const defaultTheme = {
       white55: 'rgba(255, 255, 255, 0.55)',
     },
     component: {
+      gray: '#888888',
       lightGray: '#E5E5E5',
       sliverWhite: '#F3F3F3',
       yellow: '#FFDF6F',
