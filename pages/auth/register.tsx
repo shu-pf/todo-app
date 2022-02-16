@@ -5,8 +5,47 @@ import Head from 'next/head';
 import { css, Theme } from '@emotion/react';
 import { TextInput } from '../../components/common/TextInput';
 import { Button } from '../../components/common/Button';
+import { useState } from 'react';
+import { createUser, getToken } from '../../api/users';
+import { userTokenState } from '../../states';
+import { useRecoilState } from 'recoil';
 
 const Home: NextPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [, setUserToken] = useRecoilState(userTokenState);
+
+  const register = async () => {
+    setLoading(true);
+    try {
+      await createUser({ email, password });
+      const data = await getToken({ email, password });
+      setUserToken(data.token);
+    } catch (e) {
+      if (e instanceof Error) {
+        console.log('通信エラー: ' + e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = async () => {
+    setLoading(true);
+    try {
+      const data = await getToken({ email, password });
+      setUserToken(data.token);
+    } catch (e) {
+      if (e instanceof Error) {
+        console.log('通信エラー: ' + e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -92,6 +131,8 @@ const Home: NextPage = () => {
                 <TextInput
                   type="email"
                   placeholder="email"
+                  value={email}
+                  onInput={(e) => setEmail(e.currentTarget.value)}
                   css={css`
                     width: 100%;
                   `}
@@ -105,6 +146,8 @@ const Home: NextPage = () => {
                 <TextInput
                   type="password"
                   placeholder="password"
+                  value={password}
+                  onInput={(e) => setPassword(e.currentTarget.value)}
                   css={css`
                     width: 100%;
                   `}
@@ -121,11 +164,13 @@ const Home: NextPage = () => {
                   `}
                 >
                   <Button
+                    onClick={login}
                     css={css`
                       width: 100%;
                     `}
                     label="Login"
                     variant="underlined"
+                    disabled={loading}
                   />
                 </div>
                 <div
@@ -134,11 +179,13 @@ const Home: NextPage = () => {
                   `}
                 >
                   <Button
+                    onClick={register}
                     css={css`
                       width: 100%;
                     `}
                     shadow
                     label="Register"
+                    disabled={loading}
                   />
                 </div>
               </div>
