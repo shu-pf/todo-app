@@ -90,6 +90,7 @@ const Home: NextPage = () => {
                 `}
               >
                 <TextInput
+                  type="email"
                   placeholder="email"
                   css={css`
                     width: 100%;
