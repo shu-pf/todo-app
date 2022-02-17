@@ -25,7 +25,7 @@ const Login: NextPage = () => {
           `}
           layout="fill"
           src="/images/background.png"
-          alt="Background Image"
+          alt=""
         />
         <div
           css={(theme: Theme) => css`
