@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!userToken && !isAuthPath(router.pathname)) {
-      router.push('/auth/register');
+      router.push('/auth/login');
       return;
     }
 
