@@ -6,31 +6,18 @@ import { css, Theme } from '@emotion/react';
 import { TextInput } from '../../components/common/TextInput';
 import { Button } from '../../components/common/Button';
 import { useState } from 'react';
-import { createUser, getToken } from '../../api/users';
+import { getToken } from '../../api/users';
 import { userTokenState } from '../../states';
 import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [, setUserToken] = useRecoilState(userTokenState);
-
-  const register = async () => {
-    setLoading(true);
-    try {
-      await createUser({ email, password });
-      const data = await getToken({ email, password });
-      setUserToken(data.token);
-    } catch (e) {
-      if (e instanceof Error) {
-        console.log('通信エラー: ' + e.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const login = async () => {
     setLoading(true);
@@ -183,7 +170,9 @@ const Login: NextPage = () => {
                       width: 100%;
                     `}
                     label="Register"
-                    onClick={register}
+                    onClick={() => {
+                      router.push('/auth/register');
+                    }}
                     disabled={loading}
                   />
                 </div>

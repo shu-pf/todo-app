@@ -9,8 +9,10 @@ import { useState } from 'react';
 import { createUser, getToken } from '../../api/users';
 import { userTokenState } from '../../states';
 import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,20 +23,6 @@ const Home: NextPage = () => {
     setLoading(true);
     try {
       await createUser({ email, password });
-      const data = await getToken({ email, password });
-      setUserToken(data.token);
-    } catch (e) {
-      if (e instanceof Error) {
-        console.log('通信エラー: ' + e.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const login = async () => {
-    setLoading(true);
-    try {
       const data = await getToken({ email, password });
       setUserToken(data.token);
     } catch (e) {
@@ -164,7 +152,9 @@ const Home: NextPage = () => {
                   `}
                 >
                   <Button
-                    onClick={login}
+                    onClick={() => {
+                      router.push('/auth/login');
+                    }}
                     css={css`
                       width: 100%;
                     `}
