@@ -5,8 +5,34 @@ import Head from 'next/head';
 import { css, Theme } from '@emotion/react';
 import { TextInput } from '../../components/common/TextInput';
 import { Button } from '../../components/common/Button';
+import { useState } from 'react';
+import { getToken } from '../../api/users';
+import { userTokenState } from '../../states';
+import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [, setUserToken] = useRecoilState(userTokenState);
+
+  const login = async () => {
+    setLoading(true);
+    try {
+      const data = await getToken({ email, password });
+      setUserToken(data.token);
+    } catch (e) {
+      if (e instanceof Error) {
+        console.log('通信エラー: ' + e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -94,6 +120,8 @@ const Login: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  value={email}
+                  onInput={(e) => setEmail(e.currentTarget.value)}
                 />
               </div>
               <div
@@ -107,6 +135,8 @@ const Login: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  value={password}
+                  onInput={(e) => setPassword(e.currentTarget.value)}
                 />
               </div>
               <div
@@ -125,6 +155,8 @@ const Login: NextPage = () => {
                     `}
                     label="Login"
                     shadow
+                    onClick={login}
+                    disabled={loading}
                   />
                 </div>
                 <div
@@ -138,6 +170,10 @@ const Login: NextPage = () => {
                       width: 100%;
                     `}
                     label="Register"
+                    onClick={() => {
+                      router.push('/auth/register');
+                    }}
+                    disabled={loading}
                   />
                 </div>
               </div>

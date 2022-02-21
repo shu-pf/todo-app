@@ -9,13 +9,17 @@ declare module '@emotion/react' {
   interface Theme extends DefaultTheme {}
 }
 
+import { RecoilRoot } from 'recoil';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Global styles={GlobalStyle} />
-      <ThemeProvider theme={defaultTheme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <RecoilRoot>
+        <Global styles={GlobalStyle} />
+        <ThemeProvider theme={defaultTheme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 }
