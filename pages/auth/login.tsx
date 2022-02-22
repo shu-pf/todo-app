@@ -28,7 +28,6 @@ const Login: NextPage = () => {
       if (e instanceof Error) {
         console.log('通信エラー: ' + e.message);
       }
-    } finally {
       setLoading(false);
     }
   };

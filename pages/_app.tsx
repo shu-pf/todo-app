@@ -10,15 +10,18 @@ declare module '@emotion/react' {
 }
 
 import { RecoilRoot } from 'recoil';
+import { AuthProvider } from '../providers/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <RecoilRoot>
-        <Global styles={GlobalStyle} />
-        <ThemeProvider theme={defaultTheme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <AuthProvider>
+          <Global styles={GlobalStyle} />
+          <ThemeProvider theme={defaultTheme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AuthProvider>
       </RecoilRoot>
     </>
   );
