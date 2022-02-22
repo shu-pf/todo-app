@@ -77,6 +77,8 @@ export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) =>
         css={(theme: Theme) =>
           css`
             display: flex;
+            flex: auto;
+            justify-content: space-between;
             border: 1px solid ${theme.colors.component.lighterLightGray};
             border-radius: 5px;
             padding: 14px 20px;
