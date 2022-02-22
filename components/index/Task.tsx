@@ -25,7 +25,7 @@ const monthNames = [
   'Oct.',
   'Nov.',
   'Dec.',
-];
+] as const;
 
 const iconBaseStyle = css`
   cursor: pointer;
