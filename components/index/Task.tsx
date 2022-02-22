@@ -112,7 +112,6 @@ export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) =>
         </div>
         <div
           css={css`
-            padding-top: 5px;
             display: flex;
           `}
         >
