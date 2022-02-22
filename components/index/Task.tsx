@@ -4,11 +4,13 @@ import { MouseEventHandler } from 'react';
 
 /** @jsxImportSource @emotion/react */
 interface TaskProps {
+  checked?: boolean;
   title: string;
   category: string;
   limit: string;
   onDelete: MouseEventHandler<SVGSVGElement>;
   onEdit: MouseEventHandler<SVGSVGElement>;
+  onCheck: MouseEventHandler<HTMLButtonElement>;
 }
 
 // ex. monthNames[0]→Jan, monthNames[1]→Feb ...
@@ -34,7 +36,31 @@ const iconBaseStyle = css`
   }
 `;
 
-export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) => {
+const textDecorationLine = css`
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 4px;
+    background-color: #00ebc7;
+    background: linear-gradient(to right, #00ebc7 0%, #00ddeb 100%);
+    border-radius: 2px;
+  }
+`;
+
+export const Task = ({
+  checked = false,
+  title,
+  category,
+  limit,
+  onDelete,
+  onEdit,
+  onCheck,
+}: TaskProps) => {
   // limitの形式: 2020/5/4
   const monthIndex = Number(limit.split('/')[1]) - 1;
   const month = monthNames[monthIndex];
@@ -78,7 +104,8 @@ export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) =>
           css`
             display: flex;
             flex: auto;
-            justify-content: space-between;
+            min-width: 0;
+            align-items: flex-start;
             border: 1px solid ${theme.colors.component.lighterLightGray};
             border-radius: 5px;
             padding: 14px 20px;
@@ -86,8 +113,28 @@ export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) =>
           `
         }
       >
+        <button
+          css={css`
+            margin-top: 4px;
+          `}
+          onClick={onCheck}
+        >
+          {checked ? (
+            <Icon
+              name="Check"
+              css={css`
+                margin-top: 2px;
+              `}
+            ></Icon>
+          ) : (
+            <Icon name="CheckBox"></Icon>
+          )}
+        </button>
         <div
           css={css`
+            padding-left: 24px;
+            flex: auto;
+            min-width: 0;
             padding-right: 4px;
             font-size: 18px;
           `}
@@ -95,9 +142,12 @@ export const Task = ({ title, category, limit, onDelete, onEdit }: TaskProps) =>
           <div
             css={css`
               margin-bottom: 9px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             `}
           >
-            {title}
+            <span css={checked && textDecorationLine}>{title}</span>
           </div>
           <div
             css={(theme: Theme) =>

@@ -21,3 +21,14 @@ Default.args = {
 Default.parameters = {
   backgrounds: { default: 'light' },
 };
+
+export const Checked = Template.bind({});
+Checked.args = {
+  title: '高沼カリキュラムを終わらせる',
+  category: 'Work',
+  limit: '2020/5/4',
+  checked: true,
+};
+Checked.parameters = {
+  backgrounds: { default: 'light' },
+};
