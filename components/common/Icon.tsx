@@ -3,8 +3,28 @@ import Delete from './icons/delete.svg';
 import Error from './icons/error.svg';
 import Check from './icons/check.svg';
 import CheckBox from './icons/check-box.svg';
+import Logout from './icons/logout.svg';
+import Work from './icons/work.svg';
+import Kitchen from './icons/kitchen.svg';
+import Whatshot from './icons/whatshot.svg';
+import Home from './icons/home.svg';
+import Layers from './icons/layers.svg';
+import List from './icons/list.svg';
 
-const Icons = { Add, Delete, Error, Check, CheckBox } as const;
+const Icons = {
+  Add,
+  Delete,
+  Error,
+  Check,
+  CheckBox,
+  Logout,
+  Work,
+  Kitchen,
+  Whatshot,
+  Home,
+  Layers,
+  List,
+} as const;
 
 export type IconNames = keyof typeof Icons;
 
