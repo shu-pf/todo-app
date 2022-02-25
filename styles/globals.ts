@@ -12,4 +12,7 @@ export const GlobalStyle = css`
     font-family: 'Raleway', 'Sawarabi Gothic', sans-serif;
     letter-spacing: 0.05em;
   }
+  li {
+    list-style: none;
+  }
 `;
