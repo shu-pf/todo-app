@@ -107,12 +107,13 @@ export const NavigationBar = ({
       <div>
         <h1 css={headingStyle}>Categories</h1>
       </div>
-      <div
-        css={css`
-          overflow: auto;
-        `}
-      >
-        {categories && (
+      {categories && (
+        <div
+          css={css`
+            overflow: auto;
+            margin-bottom: 12px;
+          `}
+        >
           <ul
             css={css`
               li {
@@ -131,12 +132,11 @@ export const NavigationBar = ({
               />
             ))}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
       <div
         css={css`
           flex-grow: 1;
-          margin-top: 12px;
         `}
       >
         <button
