@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
+import { MouseEventHandler } from 'react';
 import { Icon } from '../common/Icon';
 import { List } from './NavigationBar/List';
 
@@ -12,7 +13,8 @@ interface category {
 interface NavigationBarProps {
   currentCategoryId?: string;
   onSelect: ({ categoryId }: { categoryId: string }) => void;
-  onLogout: () => void;
+  onLogout: () => MouseEventHandler<HTMLButtonElement>;
+  onAddCategory: () => MouseEventHandler<HTMLButtonElement>;
   categories?: category[];
 }
 
@@ -51,6 +53,7 @@ export const NavigationBar = ({
   categories,
   onSelect,
   onLogout,
+  onAddCategory,
 }: NavigationBarProps) => {
   return (
     <nav
@@ -106,7 +109,6 @@ export const NavigationBar = ({
       </div>
       <div
         css={css`
-          flex-grow: 1;
           overflow: auto;
         `}
       >
@@ -130,6 +132,33 @@ export const NavigationBar = ({
             ))}
           </ul>
         )}
+      </div>
+      <div
+        css={css`
+          flex-grow: 1;
+          margin-top: 12px;
+        `}
+      >
+        <button
+          onClick={onAddCategory}
+          css={(theme: Theme) => css`
+            background-color: ${theme.colors.component.red30};
+            padding: 9px;
+            color: ${theme.colors.text.white};
+            width: 100%;
+            border-radius: 5px;
+            display: flex;
+          `}
+        >
+          <Icon name="Create" />
+          <span
+            css={css`
+              margin-left: 20px;
+            `}
+          >
+            Add Categories
+          </span>
+        </button>
       </div>
       <div
         css={css`

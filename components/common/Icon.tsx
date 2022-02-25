@@ -10,6 +10,7 @@ import Whatshot from './icons/whatshot.svg';
 import Home from './icons/home.svg';
 import Layers from './icons/layers.svg';
 import List from './icons/list.svg';
+import Create from './icons/create.svg';
 
 const Icons = {
   Add,
@@ -24,6 +25,7 @@ const Icons = {
   Home,
   Layers,
   List,
+  Create,
 } as const;
 
 export type IconNames = keyof typeof Icons;
