@@ -156,7 +156,7 @@ export const NavigationBar = ({
               margin-left: 20px;
             `}
           >
-            Add Categories
+            Add Category
           </span>
         </button>
       </div>
