@@ -5,7 +5,7 @@ import { MouseEventHandler } from 'react';
 import { Icon } from '../common/Icon';
 import { List } from './NavigationBar/List';
 
-interface category {
+interface Category {
   id: string;
   name: string;
 }
@@ -15,7 +15,7 @@ interface NavigationBarProps {
   onSelect: ({ categoryId }: { categoryId: string }) => void;
   onLogout: () => MouseEventHandler<HTMLButtonElement>;
   onAddCategory: () => MouseEventHandler<HTMLButtonElement>;
-  categories?: category[];
+  categories?: Category[];
 }
 
 const headingStyle = (theme: Theme) => css`
