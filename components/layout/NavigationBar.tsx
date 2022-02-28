@@ -123,7 +123,7 @@ export const NavigationBar = ({
                 onClick={() => {
                   onSelect({ categoryId: category.id });
                 }}
-                style={css`
+                css={css`
                   margin-bottom: 16px;
                 `}
               />

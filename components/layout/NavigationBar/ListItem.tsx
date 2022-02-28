@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, SerializedStyles, Theme } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { Icon, IconNames } from '../../common/Icon';
 import { MouseEventHandler } from 'react';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ interface ListItemProps {
   name: string;
   active?: boolean;
   onClick: MouseEventHandler<HTMLLIElement>;
-  style?: SerializedStyles;
+  className?: string;
 }
 
 const activeStyle = css`
@@ -32,7 +32,7 @@ const getIconName = (name: string): IconNames => {
   }
 };
 
-export const ListItem = ({ name, active = false, onClick, style }: ListItemProps) => {
+export const ListItem = ({ name, active = false, onClick, className }: ListItemProps) => {
   const [iconName, setIconName] = useState<IconNames>('Layers');
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export const ListItem = ({ name, active = false, onClick, style }: ListItemProps
           }
         `,
         active && activeStyle,
-        style,
       ]}
+      className={className}
       onClick={onClick}
     >
       <Icon
