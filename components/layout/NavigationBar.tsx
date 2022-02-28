@@ -3,7 +3,7 @@ import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
 import { MouseEventHandler } from 'react';
 import { Icon } from '../common/Icon';
-import { List } from './NavigationBar/List';
+import { ListItem } from './NavigationBar/ListItem';
 
 interface Category {
   id: string;
@@ -95,7 +95,7 @@ export const NavigationBar = ({
             margin-bottom: 32px;
           `}
         >
-          <List
+          <ListItem
             name="All"
             onClick={() => {
               onSelect({ categoryId: '' });
@@ -122,7 +122,7 @@ export const NavigationBar = ({
             `}
           >
             {categories.map((category) => (
-              <List
+              <ListItem
                 key={category.id}
                 name={category.name}
                 active={category.id === currentCategoryId}

@@ -4,7 +4,7 @@ import { Icon, IconNames } from '../../common/Icon';
 import { MouseEventHandler } from 'react';
 import { useEffect, useState } from 'react';
 
-interface ListProps {
+interface ListItemProps {
   name: string;
   active?: boolean;
   onClick: MouseEventHandler<HTMLLIElement>;
@@ -31,7 +31,7 @@ const getIconName = (name: string): IconNames => {
   }
 };
 
-export const List = ({ name, active = false, onClick }: ListProps) => {
+export const ListItem = ({ name, active = false, onClick }: ListItemProps) => {
   const [iconName, setIconName] = useState<IconNames>('Layers');
 
   useEffect(() => {
