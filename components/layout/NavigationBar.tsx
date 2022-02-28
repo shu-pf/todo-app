@@ -114,13 +114,7 @@ export const NavigationBar = ({
             margin-bottom: 12px;
           `}
         >
-          <ul
-            css={css`
-              li {
-                margin-bottom: 16px;
-              }
-            `}
-          >
+          <ul>
             {categories.map((category) => (
               <ListItem
                 key={category.id}
@@ -129,6 +123,9 @@ export const NavigationBar = ({
                 onClick={() => {
                   onSelect({ categoryId: category.id });
                 }}
+                style={css`
+                  margin-bottom: 16px;
+                `}
               />
             ))}
           </ul>
