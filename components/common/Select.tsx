@@ -42,12 +42,10 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
   return (
     <>
       <div
-        css={[
-          css`
-            width: 100%;
-            position: relative;
-          `,
-        ]}
+        css={css`
+          width: 100%;
+          position: relative;
+        `}
       >
         <div
           css={(theme: Theme) => css`
