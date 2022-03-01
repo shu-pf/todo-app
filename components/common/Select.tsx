@@ -29,11 +29,13 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
       return;
     }
 
-    const optionsElementHeight = optionsRef.current.offsetHeight;
-    const remainingHeight = window.innerHeight - inputRef.current.getBoundingClientRect().top;
+    if (active) {
+      const optionsElementHeight = optionsRef.current.offsetHeight;
+      const remainingHeight = window.innerHeight - inputRef.current.getBoundingClientRect().top;
 
-    if (remainingHeight < optionsElementHeight) {
-      setOptionsTopPixel(remainingHeight - optionsElementHeight);
+      if (remainingHeight < optionsElementHeight) {
+        setOptionsTopPixel(remainingHeight - optionsElementHeight);
+      }
     }
   }, [active]);
 
