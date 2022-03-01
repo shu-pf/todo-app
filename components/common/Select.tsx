@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
-import { createRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from './Icon';
 
 interface Option {
@@ -18,19 +18,24 @@ interface Props {
 export const Select = ({ value = '', options, onChange, placeholder = '' }: Props) => {
   const [active, setActive] = useState(false);
   const [optionsTopPixel, setOptionsTopPixel] = useState(0);
-  const optionsRef = createRef<HTMLUListElement>();
-  const inputRef = createRef<HTMLDivElement>();
+  const optionsRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (inputRef.current && optionsRef.current) {
-      const optionsElementHeight = optionsRef.current.offsetHeight;
-      const remainingHeight = window.innerHeight - inputRef.current.getBoundingClientRect().top;
-
-      if (remainingHeight < optionsElementHeight) {
-        setOptionsTopPixel(remainingHeight - optionsElementHeight);
-      }
+    if (!inputRef.current) {
+      return;
     }
-  }, [optionsRef, inputRef]);
+    if (!optionsRef.current) {
+      return;
+    }
+
+    const optionsElementHeight = optionsRef.current.offsetHeight;
+    const remainingHeight = window.innerHeight - inputRef.current.getBoundingClientRect().top;
+
+    if (remainingHeight < optionsElementHeight) {
+      setOptionsTopPixel(remainingHeight - optionsElementHeight);
+    }
+  }, [active]);
 
   return (
     <>
