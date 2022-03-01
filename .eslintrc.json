@@ -14,7 +14,8 @@
     "no-param-reassign": "error",
     "@typescript-eslint/naming-convention": [
       "error",
-      { "selector": "interface", "format": ["PascalCase"] }
+      { "selector": "interface", "format": ["PascalCase"] },
+      { "selector": "typeLike", "format": ["PascalCase"] }
     ]
   },
   "overrides": [
