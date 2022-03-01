@@ -10,7 +10,8 @@
     "svgr",
     "Takanuma",
     "unoptimized",
-    "Vercel"
+    "Vercel",
+    "Whatshot"
   ],
   "cSpell.ignorePaths": [
     "yarn.lock",

@@ -11,7 +11,12 @@
     ],
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
     "@emotion/pkg-renaming": "error",
-    "no-param-reassign": "error"
+    "no-param-reassign": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      { "selector": "interface", "format": ["PascalCase"] },
+      { "selector": "typeLike", "format": ["PascalCase"] }
+    ]
   },
   "overrides": [
     {
