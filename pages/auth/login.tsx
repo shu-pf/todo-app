@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { css, Theme } from '@emotion/react';
 import { TextInput } from '../../components/common/TextInput';
 import { Button } from '../../components/common/Button';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { getToken } from '../../api/users';
 import { userTokenState } from '../../states';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,9 @@ const Login: NextPage = () => {
 
   const [, setUserToken] = useRecoilState(userTokenState);
 
-  const login = async () => {
+  const login: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
     setLoading(true);
     try {
       const data = await getToken({ email, password });
@@ -103,11 +105,12 @@ const Login: NextPage = () => {
             >
               ログイン
             </h1>
-            <div
+            <form
               css={css`
                 width: 100%;
                 max-width: 375px;
               `}
+              onSubmit={login}
             >
               <div
                 css={css`
@@ -115,12 +118,14 @@ const Login: NextPage = () => {
                 `}
               >
                 <TextInput
+                  type="email"
                   placeholder="email"
                   css={css`
                     width: 100%;
                   `}
                   value={email}
                   onInput={(e) => setEmail(e.currentTarget.value)}
+                  required
                 />
               </div>
               <div
@@ -136,6 +141,7 @@ const Login: NextPage = () => {
                   `}
                   value={password}
                   onInput={(e) => setPassword(e.currentTarget.value)}
+                  required
                 />
               </div>
               <div
@@ -154,8 +160,8 @@ const Login: NextPage = () => {
                     `}
                     label="Login"
                     shadow
-                    onClick={login}
                     disabled={loading}
+                    type="submit"
                   />
                 </div>
                 <div
@@ -176,7 +182,7 @@ const Login: NextPage = () => {
                   />
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { css, Theme } from '@emotion/react';
 import { TextInput } from '../../components/common/TextInput';
 import { Button } from '../../components/common/Button';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { createUser, getToken } from '../../api/users';
 import { userTokenState } from '../../states';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,9 @@ const Home: NextPage = () => {
 
   const [, setUserToken] = useRecoilState(userTokenState);
 
-  const register = async () => {
+  const register: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
     setLoading(true);
     try {
       await createUser({ email, password });
@@ -105,11 +107,12 @@ const Home: NextPage = () => {
             >
               新規登録
             </h1>
-            <div
+            <form
               css={css`
                 width: 100%;
                 max-width: 375px;
               `}
+              onSubmit={register}
             >
               <div
                 css={css`
@@ -124,6 +127,7 @@ const Home: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  required
                 />
               </div>
               <div
@@ -139,6 +143,7 @@ const Home: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  required
                 />
               </div>
               <div
@@ -169,17 +174,17 @@ const Home: NextPage = () => {
                   `}
                 >
                   <Button
-                    onClick={register}
                     css={css`
                       width: 100%;
                     `}
                     shadow
                     label="Register"
+                    type="submit"
                     disabled={loading}
                   />
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
