@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
-import { MouseEventHandler } from 'react';
 import { Icon, IconNames } from './Icon';
 interface ButtonProps {
   label: string;
   variant?: 'primary' | 'error' | 'outlined' | 'underlined';
   shadow?: boolean;
-  disabled?: boolean;
   icon?: IconNames;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: JSX.IntrinsicElements['button']['disabled'];
+  onClick?: JSX.IntrinsicElements['button']['onClick'];
+  type?: JSX.IntrinsicElements['button']['type'];
 }
 
 const btnBaseStyle = css`
@@ -104,6 +104,7 @@ export const Button = ({
   shadow = false,
   variant = 'primary',
   icon,
+  type = 'button',
   ...props
 }: ButtonProps) => {
   return (
@@ -114,7 +115,7 @@ export const Button = ({
         shadow && btnShadowStyle(theme),
         props.disabled && disabledBtnStyles(theme)[variant],
       ]}
-      type="button"
+      type={type}
       {...props}
     >
       {icon && (
