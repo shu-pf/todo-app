@@ -2,20 +2,15 @@
 import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
 import { MouseEventHandler } from 'react';
+import { useCategoryList } from '../../data/category';
 import { Icon } from '../common/Icon';
 import { ListItem } from './NavigationBar/ListItem';
-
-interface Category {
-  id: string;
-  name: string;
-}
 
 interface NavigationBarProps {
   currentCategoryId?: string;
   onSelect: ({ categoryId }: { categoryId: string }) => void;
   onLogout: () => MouseEventHandler<HTMLButtonElement>;
   onAddCategory: () => MouseEventHandler<HTMLButtonElement>;
-  categories?: Category[];
 }
 
 const headingStyle = (theme: Theme) => css`
@@ -50,11 +45,12 @@ const headingStyle = (theme: Theme) => css`
 
 export const NavigationBar = ({
   currentCategoryId,
-  categories,
   onSelect,
   onLogout,
   onAddCategory,
 }: NavigationBarProps) => {
+  const { categories } = useCategoryList();
+
   return (
     <nav
       css={(theme: Theme) => css`

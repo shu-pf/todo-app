@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { NavigationBar } from '../../components/layout/NavigationBar';
+import { rest } from 'msw';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   title: 'component/layout/NavigationBar',
@@ -45,20 +46,39 @@ const manyCategories = [
 ];
 
 export const Default = Template.bind({});
-Default.args = {
-  categories,
+Default.parameters = {
+  msw: {
+    handlers: [
+      rest.get('/api/categories', (_, res, ctx) => {
+        return res(ctx.json(categories));
+      }),
+    ],
+  },
 };
 
 export const CategorySelected = Template.bind({});
 CategorySelected.args = {
-  categories,
   currentCategoryId: 'oeijfeowijfwoeijk',
 };
 
 export const NoCategories = Template.bind({});
-NoCategories.args = {};
+NoCategories.parameters = {
+  msw: {
+    handlers: [
+      rest.get('/api/categories', (_, res, ctx) => {
+        return res(ctx.json([]));
+      }),
+    ],
+  },
+};
 
 export const ManyCategories = Template.bind({});
-ManyCategories.args = {
-  categories: manyCategories,
+ManyCategories.parameters = {
+  msw: {
+    handlers: [
+      rest.get('/api/categories', (_, res, ctx) => {
+        return res(ctx.json(manyCategories));
+      }),
+    ],
+  },
 };
