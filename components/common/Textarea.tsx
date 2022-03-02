@@ -16,6 +16,7 @@ export const Textarea = ({ width = '100%', height = '128px', ...props }: Props) 
           border-radius: 5px;
           width: ${width};
           height: ${height};
+          padding: 8px 10px;
         `
       }
     ></textarea>
