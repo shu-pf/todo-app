@@ -11,12 +11,7 @@
     ],
     "@emotion/jsx-import": [2, { "runtime": "automatic" }],
     "@emotion/pkg-renaming": "error",
-    "no-param-reassign": "error",
-    "@typescript-eslint/naming-convention": [
-      "error",
-      { "selector": "interface", "format": ["PascalCase"] },
-      { "selector": "typeLike", "format": ["PascalCase"] }
-    ]
+    "no-param-reassign": "error"
   },
   "overrides": [
     {
@@ -28,7 +23,14 @@
       "files": ["*.ts", "*.tsx"],
       "extends": "plugin:@typescript-eslint/recommended",
       "parser": "@typescript-eslint/parser",
-      "plugins": ["@typescript-eslint"]
+      "plugins": ["@typescript-eslint"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          { "selector": "interface", "format": ["PascalCase"] },
+          { "selector": "typeLike", "format": ["PascalCase"] }
+        ]
+      }
     },
     {
       "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
