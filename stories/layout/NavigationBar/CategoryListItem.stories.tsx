@@ -2,7 +2,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CategoryListItem } from '../../../components/layout/NavigationBar/CategoryListItem';
 
 const meta: ComponentMeta<typeof CategoryListItem> = {
-  title: 'component/layout/NavigationBar/CategoryListItem',
   component: CategoryListItem,
   parameters: {
     backgrounds: {

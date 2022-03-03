@@ -3,7 +3,6 @@ import { Middleware, SWRResponse, SWRConfig } from 'swr';
 import { CategoryList } from '../../../components/layout/NavigationBar/CategoryList';
 
 const meta: ComponentMeta<typeof CategoryList> = {
-  title: 'component/layout/NavigationBar/CategoryList',
   component: CategoryList,
   parameters: {
     backgrounds: {

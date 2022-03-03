@@ -3,7 +3,6 @@ import { NavigationBar } from '../../components/layout/NavigationBar';
 import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
-  title: 'component/layout/NavigationBar',
   component: NavigationBar,
 };
 

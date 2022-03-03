@@ -4,7 +4,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Button } from '../../components/common/Button';
 
 const meta: ComponentMeta<typeof Button> = {
-  title: 'component/common/Button',
   component: Button,
   argTypes: { onClick: { action: 'clicked' } },
 };
