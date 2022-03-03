@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { MouseEventHandler } from 'react';
 import { useCategoryList } from '../../data/category';
 import { Icon } from '../common/Icon';
-import { ListItem } from './NavigationBar/ListItem';
+import { CategoryListItem } from './NavigationBar/CategoryListItem';
 
 interface NavigationBarProps {
   currentCategoryId?: string;
@@ -91,7 +91,7 @@ export const NavigationBar = ({
             margin-bottom: 32px;
           `}
         >
-          <ListItem
+          <CategoryListItem
             name="All"
             onClick={() => {
               onSelect({ categoryId: '' });
@@ -112,7 +112,7 @@ export const NavigationBar = ({
         >
           <ul>
             {categories.map((category) => (
-              <ListItem
+              <CategoryListItem
                 key={category.id}
                 name={category.name}
                 active={category.id === currentCategoryId}
