@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useCategoryList } from '../../../data/category';
+import { Spinner } from '../../common/Spinner';
 import { CategoryListItem } from './CategoryListItem';
 
 interface CategoryListProps {
@@ -12,7 +13,15 @@ export const CategoryList = ({ currentCategoryId, onSelect }: CategoryListProps)
   const { categories, isLoading, isError } = useCategoryList();
 
   if (isLoading) {
-    return <>loading...</>;
+    return (
+      <div
+        css={css`
+          margin: 16px auto;
+        `}
+      >
+        <Spinner />
+      </div>
+    );
   }
 
   if (isError) {
