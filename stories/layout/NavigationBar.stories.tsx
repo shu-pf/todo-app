@@ -1,7 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { NavigationBar } from '../../components/layout/NavigationBar';
-import { rest } from 'msw';
-import { useSWRConfig } from 'swr';
+import { Middleware, SWRConfig, SWRResponse, useSWRConfig } from 'swr';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   title: 'component/layout/NavigationBar',
@@ -43,7 +42,7 @@ const categories = [
   },
 ];
 
-const manyCategories = [
+const manyCategory = [
   ...categories,
   { id: 'awpfwkafewlk', name: 'その他' },
   { id: 'fefefewfewaf', name: 'その他' },
@@ -54,49 +53,61 @@ const manyCategories = [
   { id: 'pkmjwemrkmkw', name: 'その他' },
 ];
 
-export const Default = Template.bind({});
-Default.parameters = {
-  msw: {
-    handlers: [
-      rest.get('/api/categories', (_, res, ctx) => {
-        return res(ctx.json(categories));
-      }),
-    ],
-  },
+const successMiddleware: Middleware = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (): SWRResponse<any, any> => {
+    return {
+      data: categories,
+      error: undefined,
+      mutate: () => Promise.resolve(),
+      isValidating: false,
+    };
+  };
 };
 
-export const CategorySelected = Template.bind({});
-CategorySelected.parameters = {
-  msw: {
-    handlers: [
-      rest.get('/api/categories', (_, res, ctx) => {
-        return res(ctx.json(categories));
-      }),
-    ],
-  },
+const noCategoryMiddleware: Middleware = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (): SWRResponse<any, any> => {
+    return {
+      data: [],
+      error: undefined,
+      mutate: () => Promise.resolve(),
+      isValidating: false,
+    };
+  };
 };
+
+const manyCategoryMiddleware: Middleware = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (): SWRResponse<any, any> => {
+    return {
+      data: manyCategory,
+      error: undefined,
+      mutate: () => Promise.resolve(),
+      isValidating: false,
+    };
+  };
+};
+
+export const Default = Template.bind({});
+Default.decorators = [
+  (story) => <SWRConfig value={{ use: [successMiddleware] }}>{story()}</SWRConfig>,
+];
+
+export const CategorySelected = Template.bind({});
+CategorySelected.decorators = [
+  (story) => <SWRConfig value={{ use: [successMiddleware] }}>{story()}</SWRConfig>,
+];
 CategorySelected.args = {
   currentCategoryId: 'oeijfeowijfwoeijk',
 };
 
 export const NoCategories = Template.bind({});
-NoCategories.parameters = {
-  msw: {
-    handlers: [
-      rest.get('/api/categories', (_, res, ctx) => {
-        return res(ctx.json([]));
-      }),
-    ],
-  },
-};
+NoCategories.decorators = [
+  (story) => <SWRConfig value={{ use: [noCategoryMiddleware] }}>{story()}</SWRConfig>,
+];
 
 export const ManyCategories = Template.bind({});
-ManyCategories.parameters = {
-  msw: {
-    handlers: [
-      rest.get('/api/categories', (_, res, ctx) => {
-        return res(ctx.json(manyCategories));
-      }),
-    ],
-  },
-};
+ManyCategories.decorators = [
+  (story) => <SWRConfig value={{ use: [manyCategoryMiddleware] }}>{story()}</SWRConfig>,
+];
