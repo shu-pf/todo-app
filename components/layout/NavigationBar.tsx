@@ -2,6 +2,8 @@
 import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
 import { MouseEventHandler } from 'react';
+import { useRecoilState } from 'recoil';
+import { userTokenState } from '../../states';
 import { Icon } from '../common/Icon';
 import { CategoryList } from './NavigationBar/CategoryList';
 import { CategoryListItem } from './NavigationBar/CategoryListItem';
@@ -9,7 +11,6 @@ import { CategoryListItem } from './NavigationBar/CategoryListItem';
 interface NavigationBarProps {
   currentCategoryId?: string;
   onSelect: ({ categoryId }: { categoryId: string }) => void;
-  onLogout: () => MouseEventHandler<HTMLButtonElement>;
   onAddCategory: () => MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -46,9 +47,10 @@ const headingStyle = (theme: Theme) => css`
 export const NavigationBar = ({
   currentCategoryId,
   onSelect,
-  onLogout,
   onAddCategory,
 }: NavigationBarProps) => {
+  const [, setUserToken] = useRecoilState(userTokenState);
+
   return (
     <nav
       css={(theme: Theme) => css`
@@ -133,7 +135,7 @@ export const NavigationBar = ({
           margin-top: 12px;
         `}
       >
-        <button onClick={onLogout}>
+        <button onClick={() => setUserToken('')}>
           <Icon name="Logout" />
         </button>
       </div>
