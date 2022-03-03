@@ -34,7 +34,6 @@ export const CategoryList = ({ currentCategoryId, onSelect }: CategoryListProps)
         <div
           css={css`
             overflow: auto;
-            margin-bottom: 12px;
           `}
         >
           <ul>
