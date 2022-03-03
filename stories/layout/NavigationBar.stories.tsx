@@ -57,6 +57,18 @@ const successMiddleware: Middleware = () => {
   };
 };
 
+const loadingMiddleware: Middleware = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (): SWRResponse<any, any> => {
+    return {
+      data: undefined,
+      error: undefined,
+      mutate: () => Promise.resolve(),
+      isValidating: false,
+    };
+  };
+};
+
 const noCategoryMiddleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (): SWRResponse<any, any> => {
@@ -84,6 +96,11 @@ const manyCategoryMiddleware: Middleware = () => {
 export const Default = Template.bind({});
 Default.decorators = [
   (story) => <SWRConfig value={{ use: [successMiddleware] }}>{story()}</SWRConfig>,
+];
+
+export const Loading = Template.bind({});
+Loading.decorators = [
+  (story) => <SWRConfig value={{ use: [loadingMiddleware] }}>{story()}</SWRConfig>,
 ];
 
 export const CategorySelected = Template.bind({});
