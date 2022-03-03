@@ -11,7 +11,8 @@
     "Takanuma",
     "unoptimized",
     "Vercel",
-    "viewports"
+    "viewports",
+    "Whatshot"
   ],
   "cSpell.ignorePaths": [
     "yarn.lock",

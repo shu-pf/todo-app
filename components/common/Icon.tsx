@@ -4,8 +4,31 @@ import Error from './icons/error.svg';
 import Check from './icons/check.svg';
 import CheckBox from './icons/check-box.svg';
 import ExpandMore from './icons/expand-more.svg';
+import Logout from './icons/logout.svg';
+import Work from './icons/work.svg';
+import Kitchen from './icons/kitchen.svg';
+import Whatshot from './icons/whatshot.svg';
+import Home from './icons/home.svg';
+import Layers from './icons/layers.svg';
+import List from './icons/list.svg';
+import Create from './icons/create.svg';
 
-const Icons = { Add, Delete, Error, Check, CheckBox, ExpandMore } as const;
+const Icons = {
+  Add,
+  Delete,
+  Error,
+  Check,
+  CheckBox,
+  Logout,
+  Work,
+  Kitchen,
+  Whatshot,
+  Home,
+  Layers,
+  List,
+  Create,
+  ExpandMore,
+} as const;
 
 export type IconNames = keyof typeof Icons;
 
