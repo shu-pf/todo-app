@@ -1,10 +1,19 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { NavigationBar } from '../../components/layout/NavigationBar';
 import { rest } from 'msw';
+import { useSWRConfig } from 'swr';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   title: 'component/layout/NavigationBar',
   component: NavigationBar,
+  decorators: [
+    (story) => {
+      const { mutate } = useSWRConfig();
+      mutate('/api/categories');
+
+      return story();
+    },
+  ],
 };
 
 export default meta;
@@ -57,6 +66,15 @@ Default.parameters = {
 };
 
 export const CategorySelected = Template.bind({});
+CategorySelected.parameters = {
+  msw: {
+    handlers: [
+      rest.get('/api/categories', (_, res, ctx) => {
+        return res(ctx.json(categories));
+      }),
+    ],
+  },
+};
 CategorySelected.args = {
   currentCategoryId: 'oeijfeowijfwoeijk',
 };
