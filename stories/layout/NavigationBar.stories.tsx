@@ -1,18 +1,10 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { NavigationBar } from '../../components/layout/NavigationBar';
-import { Middleware, SWRConfig, SWRResponse, useSWRConfig } from 'swr';
+import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   title: 'component/layout/NavigationBar',
   component: NavigationBar,
-  decorators: [
-    (story) => {
-      const { mutate } = useSWRConfig();
-      mutate('/api/categories');
-
-      return story();
-    },
-  ],
 };
 
 export default meta;
