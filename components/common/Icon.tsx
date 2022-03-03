@@ -3,6 +3,7 @@ import Delete from './icons/delete.svg';
 import Error from './icons/error.svg';
 import Check from './icons/check.svg';
 import CheckBox from './icons/check-box.svg';
+import ExpandMore from './icons/expand-more.svg';
 import Logout from './icons/logout.svg';
 import Work from './icons/work.svg';
 import Kitchen from './icons/kitchen.svg';
@@ -26,6 +27,7 @@ const Icons = {
   Layers,
   List,
   Create,
+  ExpandMore,
 } as const;
 
 export type IconNames = keyof typeof Icons;
