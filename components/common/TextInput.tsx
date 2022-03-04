@@ -1,16 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme, useTheme } from '@emotion/react';
-import { useMemo } from 'react';
+import { FormEventHandler, useMemo } from 'react';
 
-type InputProps = JSX.IntrinsicElements['input'];
-type Variant = 'default' | 'outlined';
-type Props = InputProps & { variant?: Variant; className?: string };
+type Props = {
+  type: 'text' | 'email' | 'password';
+  name: string;
+  placeholder?: string;
+  required?: boolean;
+  variant?: 'default' | 'outlined';
+  size?: 'large' | 'small';
+  className?: string;
+  value?: string;
+  onInput?: FormEventHandler<HTMLInputElement>;
+};
+
+const sizeStyles = {
+  large: css`
+    padding: 12px;
+  `,
+  small: css`
+    height: 36px;
+    padding: 7px 12px;
+  `,
+};
 
 function style(theme: Theme) {
   const baseStyle = css`
     background-color: ${theme.colors.component.pureWhite};
     border-radius: 5px;
-    padding: 12px;
   `;
 
   return {
@@ -29,9 +46,22 @@ function style(theme: Theme) {
   };
 }
 
-export const TextInput = ({ className, type = 'text', variant = 'default', ...props }: Props) => {
+export const TextInput = ({
+  type = 'text',
+  size = 'large',
+  variant = 'default',
+  className,
+  ...rest
+}: Props) => {
   const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
 
-  return <input className={className} type={type} css={serializedStyles[variant]} {...props} />;
+  return (
+    <input
+      className={className}
+      type={type}
+      css={[serializedStyles[variant], sizeStyles[size]]}
+      {...rest}
+    />
+  );
 };

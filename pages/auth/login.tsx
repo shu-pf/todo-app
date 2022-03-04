@@ -119,6 +119,7 @@ const Login: NextPage = () => {
               >
                 <TextInput
                   type="email"
+                  name="email"
                   placeholder="email"
                   css={css`
                     width: 100%;
@@ -135,6 +136,7 @@ const Login: NextPage = () => {
               >
                 <TextInput
                   type="password"
+                  name="password"
                   placeholder="password"
                   css={css`
                     width: 100%;

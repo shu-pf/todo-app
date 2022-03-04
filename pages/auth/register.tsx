@@ -121,6 +121,7 @@ const Home: NextPage = () => {
               >
                 <TextInput
                   type="email"
+                  name="email"
                   placeholder="email"
                   value={email}
                   onInput={(e) => setEmail(e.currentTarget.value)}
@@ -137,6 +138,7 @@ const Home: NextPage = () => {
               >
                 <TextInput
                   type="password"
+                  name="password"
                   placeholder="password"
                   value={password}
                   onInput={(e) => setPassword(e.currentTarget.value)}
