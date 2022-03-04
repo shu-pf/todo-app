@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+
 import { useCategoryList } from '../../../data/category';
 import { Spinner } from '../../common/Spinner';
+
 import { CategoryListItem } from './CategoryListItem';
 
 interface CategoryListProps {

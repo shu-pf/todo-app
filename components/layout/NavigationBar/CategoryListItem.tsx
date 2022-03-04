@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
-import { Icon, IconNames } from '../../common/Icon';
 import { MouseEventHandler } from 'react';
 import { useEffect, useState } from 'react';
+
+import { Icon, IconNames } from '../../common/Icon';
 
 interface CategoryListItemProps {
   name: string;

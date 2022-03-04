@@ -4,9 +4,11 @@ import Image from 'next/image';
 import { FormEventHandler, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { mutate } from 'swr';
+
 import { createCategory } from '../../api/users/createCategory';
 import { userTokenState } from '../../states';
 import { Icon } from '../common/Icon';
+
 import { AddCategoryInput } from './NavigationBar/AddCategoryInput';
 import { CategoryList } from './NavigationBar/CategoryList';
 import { CategoryListItem } from './NavigationBar/CategoryListItem';
