@@ -1,9 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ListItem } from '../../../components/layout/NavigationBar/ListItem';
 
-const meta: ComponentMeta<typeof ListItem> = {
-  title: 'component/layout/NavigationBar/ListItem',
-  component: ListItem,
+import { CategoryListItem } from '../../../components/layout/NavigationBar/CategoryListItem';
+
+const meta: ComponentMeta<typeof CategoryListItem> = {
+  component: CategoryListItem,
   parameters: {
     backgrounds: {
       default: 'pink',
@@ -14,7 +14,7 @@ const meta: ComponentMeta<typeof ListItem> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof ListItem> = (args) => <ListItem {...args} />;
+const Template: ComponentStory<typeof CategoryListItem> = (args) => <CategoryListItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

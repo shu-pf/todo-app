@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import { Select } from '../components/common/Select';
 
 const meta: ComponentMeta<typeof Select> = {

@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import type { NextPage } from 'next';
-import Image from 'next/image';
-import Head from 'next/head';
 import { css, Theme } from '@emotion/react';
-import { TextInput } from '../../components/common/TextInput';
-import { Button } from '../../components/common/Button';
-import { FormEventHandler, useState } from 'react';
-import { createUser, getToken } from '../../api/users';
-import { userTokenState } from '../../states';
-import { useRecoilState } from 'recoil';
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FormEventHandler, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { createUser, getToken } from '../../api/users';
+import { Button } from '../../components/common/Button';
+import { TextInput } from '../../components/common/TextInput';
+import { userTokenState } from '../../states';
 
 const Home: NextPage = () => {
   const router = useRouter();

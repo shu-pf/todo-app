@@ -9,6 +9,7 @@ export const defaultTheme = {
     },
     secondary: {
       white: '#FFFFFE',
+      white54: 'rgba(255, 255, 254, 0.54)',
     },
     text: {
       navy: '#00214D',

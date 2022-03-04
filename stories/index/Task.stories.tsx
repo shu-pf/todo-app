@@ -1,10 +1,9 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from 'react';
 
-import { Task } from '../components/index/Task';
+import { Task } from '../../components/index/Task';
 
 const meta: ComponentMeta<typeof Task> = {
-  title: 'component/index/Task',
   component: Task,
 };
 

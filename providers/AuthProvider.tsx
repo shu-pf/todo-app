@@ -1,8 +1,9 @@
-import { SWRConfig } from 'swr';
-import { useRecoilState } from 'recoil';
-import { userTokenState } from '../states';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { SWRConfig } from 'swr';
+
+import { userTokenState } from '../states';
 
 const isAuthPath = (path: string) => {
   return path.startsWith('/auth');
