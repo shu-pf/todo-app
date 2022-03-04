@@ -13,7 +13,7 @@ interface Props {
   value?: string;
   options: Option[];
   placeholder?: string;
-  onSelect: (value: string) => void;
+  onSelect?: (value: string) => void;
 }
 
 interface OptionProps {
@@ -167,7 +167,7 @@ export const Select = ({ name, value = '', options, onSelect, placeholder = '' }
           onSelect={(value) => {
             setActive(false);
             setLocalValue(value);
-            onSelect(value);
+            onSelect && onSelect(value);
           }}
           topPx={divRef.current?.getBoundingClientRect().top}
           active={active}
