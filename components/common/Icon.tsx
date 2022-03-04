@@ -1,17 +1,17 @@
 import Add from './icons/add.svg';
+import CheckBox from './icons/check-box.svg';
+import Check from './icons/check.svg';
+import Create from './icons/create.svg';
 import Delete from './icons/delete.svg';
 import Error from './icons/error.svg';
-import Check from './icons/check.svg';
-import CheckBox from './icons/check-box.svg';
 import ExpandMore from './icons/expand-more.svg';
-import Logout from './icons/logout.svg';
-import Work from './icons/work.svg';
-import Kitchen from './icons/kitchen.svg';
-import Whatshot from './icons/whatshot.svg';
 import Home from './icons/home.svg';
+import Kitchen from './icons/kitchen.svg';
 import Layers from './icons/layers.svg';
 import List from './icons/list.svg';
-import Create from './icons/create.svg';
+import Logout from './icons/logout.svg';
+import Whatshot from './icons/whatshot.svg';
+import Work from './icons/work.svg';
 
 const Icons = {
   Add,

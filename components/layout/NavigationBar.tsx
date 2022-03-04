@@ -1,21 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
-import { MouseEventHandler } from 'react';
-import { Icon } from '../common/Icon';
-import { ListItem } from './NavigationBar/ListItem';
+import { FormEventHandler, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { mutate } from 'swr';
 
-interface Category {
-  id: string;
-  name: string;
-}
+import { createCategory } from '../../api/users/createCategory';
+import { userTokenState } from '../../states';
+import { Icon } from '../common/Icon';
+
+import { AddCategoryInput } from './NavigationBar/AddCategoryInput';
+import { CategoryList } from './NavigationBar/CategoryList';
+import { CategoryListItem } from './NavigationBar/CategoryListItem';
 
 interface NavigationBarProps {
   currentCategoryId?: string;
   onSelect: ({ categoryId }: { categoryId: string }) => void;
-  onLogout: () => MouseEventHandler<HTMLButtonElement>;
-  onAddCategory: () => MouseEventHandler<HTMLButtonElement>;
-  categories?: Category[];
 }
 
 const headingStyle = (theme: Theme) => css`
@@ -48,13 +48,19 @@ const headingStyle = (theme: Theme) => css`
   }
 `;
 
-export const NavigationBar = ({
-  currentCategoryId,
-  categories,
-  onSelect,
-  onLogout,
-  onAddCategory,
-}: NavigationBarProps) => {
+export const NavigationBar = ({ currentCategoryId, onSelect }: NavigationBarProps) => {
+  const [userToken, setUserToken] = useRecoilState(userTokenState);
+  const [displayAddCategoryForm, setDisplayAddCategoryForm] = useState(false);
+  const [categoryName, setCategoryName] = useState('');
+
+  const onCreateCategory: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    await createCategory({ name: categoryName, token: userToken });
+    mutate('/api/categories');
+    setDisplayAddCategoryForm(false);
+    setCategoryName('');
+  };
+
   return (
     <nav
       css={(theme: Theme) => css`
@@ -95,7 +101,7 @@ export const NavigationBar = ({
             margin-bottom: 32px;
           `}
         >
-          <ListItem
+          <CategoryListItem
             name="All"
             onClick={() => {
               onSelect({ categoryId: '' });
@@ -107,37 +113,33 @@ export const NavigationBar = ({
       <div>
         <h1 css={headingStyle}>Categories</h1>
       </div>
-      {categories && (
-        <div
-          css={css`
-            overflow: auto;
-            margin-bottom: 12px;
-          `}
-        >
-          <ul>
-            {categories.map((category) => (
-              <ListItem
-                key={category.id}
-                name={category.name}
-                active={category.id === currentCategoryId}
-                onClick={() => {
-                  onSelect({ categoryId: category.id });
-                }}
-                css={css`
-                  margin-bottom: 16px;
-                `}
-              />
-            ))}
-          </ul>
-        </div>
+      <CategoryList onSelect={onSelect} />
+      {displayAddCategoryForm && (
+        <form onSubmit={onCreateCategory}>
+          <AddCategoryInput
+            css={css`
+              margin-bottom: 16px;
+            `}
+            onClose={() => {
+              setDisplayAddCategoryForm(false);
+            }}
+            value={categoryName}
+            onChange={(e) => {
+              setCategoryName(e.target.value);
+            }}
+          />
+        </form>
       )}
       <div
         css={css`
+          margin-top: 12px;
           flex-grow: 1;
         `}
       >
         <button
-          onClick={onAddCategory}
+          onClick={() => {
+            setDisplayAddCategoryForm(true);
+          }}
           css={(theme: Theme) => css`
             background-color: ${theme.colors.component.red30};
             padding: 9px;
@@ -162,7 +164,7 @@ export const NavigationBar = ({
           margin-top: 12px;
         `}
       >
-        <button onClick={onLogout}>
+        <button onClick={() => setUserToken('')}>
           <Icon name="Logout" />
         </button>
       </div>

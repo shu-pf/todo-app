@@ -4,6 +4,7 @@ import { defaultTheme } from '../themes/default';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from '../styles/globals';
 import * as NextImage from 'next/image';
+import { RecoilRoot } from 'recoil';
 
 const OriginalNextImage = NextImage.default;
 Object.defineProperty(NextImage, 'default', {
@@ -24,10 +25,12 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <>
-      <Global styles={GlobalStyle} />
-      <ThemeProvider theme={defaultTheme}>
-        <Story />
-      </ThemeProvider>
+      <RecoilRoot>
+        <Global styles={GlobalStyle} />
+        <ThemeProvider theme={defaultTheme}>
+          <Story />
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   ),
 ];

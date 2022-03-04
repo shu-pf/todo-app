@@ -1,6 +1,7 @@
 import { css, Theme } from '@emotion/react';
-import { Icon } from '../common/Icon';
 import { MouseEventHandler } from 'react';
+
+import { Icon } from '../common/Icon';
 
 /** @jsxImportSource @emotion/react */
 interface TaskProps {
