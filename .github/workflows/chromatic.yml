@@ -1,0 +1,26 @@
+# .github/workflows/chromatic.yml
+
+# ワークフロー名
+name: 'Chromatic'
+
+# ワークフローのためのイベント
+on: push
+
+# ジョブ一覧
+jobs:
+  chromatic-deployment:
+    # オペレーティングシステム
+    runs-on: ubuntu-latest
+    # ジョブステップ
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn
+        # 👇ワークフローのステップとしてChromaticを追加する
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action のオプション
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # 👇 Chromatic projectTokenは、管理ページを参照して取得してください。
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
