@@ -8,6 +8,10 @@
       "warn",
       { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
     ],
+    "import/order": [
+      "error",
+      { "newlines-between": "always", "alphabetize": { "order": "asc", "caseInsensitive": true } }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
       "warn",
