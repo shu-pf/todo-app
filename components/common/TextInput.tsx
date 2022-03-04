@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 type InputProps = JSX.IntrinsicElements['input'];
 type Variant = 'default' | 'outlined';
-type Props = InputProps & { variant?: Variant };
+type Props = InputProps & { variant?: Variant; className?: string };
 
 function style(theme: Theme) {
   const baseStyle = css`
@@ -29,9 +29,9 @@ function style(theme: Theme) {
   };
 }
 
-export const TextInput = ({ type = 'text', variant = 'default', ...props }: Props) => {
+export const TextInput = ({ className, type = 'text', variant = 'default', ...props }: Props) => {
   const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
 
-  return <input type={type} css={serializedStyles[variant]} {...props} />;
+  return <input className={className} type={type} css={serializedStyles[variant]} {...props} />;
 };
