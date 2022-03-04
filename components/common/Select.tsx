@@ -9,35 +9,110 @@ interface Option {
 }
 
 interface Props {
+  name: string;
   value?: string;
   options: Option[];
   placeholder?: string;
-  onChange: (option: Option) => void;
+  onSelect: (value: string) => void;
 }
 
-export const Select = ({ value = '', options, onChange, placeholder = '' }: Props) => {
-  const [active, setActive] = useState(false);
+interface OptionProps {
+  topPx: number | undefined;
+  options: Option[];
+  onSelect: (value: string) => void;
+  onCancel: () => void;
+  active: boolean;
+}
+
+const Options = ({ topPx, active, options, onSelect, onCancel }: OptionProps) => {
   const [optionsTopPixel, setOptionsTopPixel] = useState(0);
   const optionsRef = useRef<HTMLUListElement>(null);
-  const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!inputRef.current) {
-      return;
-    }
-    if (!optionsRef.current) {
+    if (!optionsRef.current || !topPx) {
       return;
     }
 
     if (active) {
       const optionsElementHeight = optionsRef.current.offsetHeight;
-      const remainingHeight = window.innerHeight - inputRef.current.getBoundingClientRect().top;
+      const remainingHeight = window.innerHeight - topPx;
 
       if (remainingHeight < optionsElementHeight) {
         setOptionsTopPixel(remainingHeight - optionsElementHeight);
       }
     }
-  }, [active]);
+  }, [active, topPx]);
+
+  if (!active) {
+    return <></>;
+  }
+
+  return (
+    <>
+      <ul
+        css={(theme: Theme) =>
+          css`
+            position: absolute;
+            box-shadow: 0px 0px 13px ${theme.colors.component.shadowBlack};
+            background-color: ${theme.colors.secondary.white};
+            padding: 6px;
+            border-radius: 5px;
+            top: ${optionsTopPixel}px;
+            left: 0;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1;
+          `
+        }
+        ref={optionsRef}
+      >
+        {options.map((option) => (
+          <li
+            css={(theme: Theme) => [
+              css`
+                display: flex;
+                align-items: center;
+                height: 35px;
+                cursor: pointer;
+                color: ${theme.colors.text.navy};
+                &:hover {
+                  background-color: ${theme.colors.component.lighterLightGray};
+                }
+              `,
+            ]}
+            key={option.key}
+            onClick={() => onSelect(option.value)}
+          >
+            {option.value}
+          </li>
+        ))}
+      </ul>
+      <div
+        css={css`
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 0;
+        `}
+        onClick={() => onCancel()}
+      ></div>
+    </>
+  );
+};
+
+export const Select = ({ name, value = '', options, onSelect, placeholder = '' }: Props) => {
+  const [active, setActive] = useState(false);
+
+  const divRef = useRef<HTMLDivElement>(null);
+  const [localValue, setLocalValue] = useState('');
+
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
 
   return (
     <>
@@ -47,6 +122,14 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
           position: relative;
         `}
       >
+        <input
+          name={name}
+          css={css`
+            display: none;
+          `}
+          type="text"
+          value={localValue}
+        />
         <div
           css={(theme: Theme) => css`
             display: flex;
@@ -63,10 +146,10 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
           onClick={() => {
             setActive(true);
           }}
-          ref={inputRef}
+          ref={divRef}
         >
-          {value}
-          {!value && (
+          {localValue}
+          {!localValue && (
             <span
               css={(theme: Theme) =>
                 css`
@@ -79,66 +162,17 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
           )}
           <Icon name="ExpandMore" />
         </div>
-        {active && (
-          <>
-            <ul
-              css={(theme: Theme) =>
-                css`
-                  position: absolute;
-                  box-shadow: 0px 0px 13px ${theme.colors.component.shadowBlack};
-                  background-color: ${theme.colors.secondary.white};
-                  padding: 6px;
-                  border-radius: 5px;
-                  top: ${optionsTopPixel}px;
-                  left: 0;
-                  width: 100%;
-                  max-height: 80vh;
-                  overflow-y: auto;
-                  overflow-x: hidden;
-                  z-index: 1;
-                `
-              }
-              ref={optionsRef}
-            >
-              {options.map((option) => (
-                <li
-                  css={(theme: Theme) => [
-                    css`
-                      display: flex;
-                      align-items: center;
-                      height: 35px;
-                      cursor: pointer;
-                      color: ${theme.colors.text.navy};
-                      &:hover {
-                        background-color: ${theme.colors.component.lighterLightGray};
-                      }
-                    `,
-                  ]}
-                  key={option.key}
-                  onClick={() => {
-                    setActive(false);
-                    onChange(option);
-                  }}
-                >
-                  {option.value}
-                </li>
-              ))}
-            </ul>
-            <div
-              css={css`
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 0;
-              `}
-              onClick={() => {
-                setActive(false);
-              }}
-            ></div>
-          </>
-        )}
+        <Options
+          options={options}
+          onSelect={(value) => {
+            setActive(false);
+            setLocalValue(value);
+            onSelect(value);
+          }}
+          topPx={divRef.current?.getBoundingClientRect().top}
+          active={active}
+          onCancel={() => setActive(false)}
+        />
       </div>
     </>
   );
