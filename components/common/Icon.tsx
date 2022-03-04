@@ -12,6 +12,7 @@ import Home from './icons/home.svg';
 import Layers from './icons/layers.svg';
 import List from './icons/list.svg';
 import Create from './icons/create.svg';
+import Clear from './icons/clear.svg';
 
 const Icons = {
   Add,
@@ -28,6 +29,7 @@ const Icons = {
   List,
   Create,
   ExpandMore,
+  Clear,
 } as const;
 
 export type IconNames = keyof typeof Icons;
