@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { createUser, getToken } from '../../api/users';
@@ -20,7 +20,9 @@ const Home: NextPage = () => {
 
   const [, setUserToken] = useRecoilState(userTokenState);
 
-  const register = async () => {
+  const register: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
     setLoading(true);
     try {
       await createUser({ email, password });
@@ -106,11 +108,12 @@ const Home: NextPage = () => {
             >
               新規登録
             </h1>
-            <div
+            <form
               css={css`
                 width: 100%;
                 max-width: 375px;
               `}
+              onSubmit={register}
             >
               <div
                 css={css`
@@ -125,6 +128,7 @@ const Home: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  required
                 />
               </div>
               <div
@@ -140,6 +144,7 @@ const Home: NextPage = () => {
                   css={css`
                     width: 100%;
                   `}
+                  required
                 />
               </div>
               <div
@@ -170,17 +175,17 @@ const Home: NextPage = () => {
                   `}
                 >
                   <Button
-                    onClick={register}
                     css={css`
                       width: 100%;
                     `}
                     shadow
                     label="Register"
+                    type="submit"
                     disabled={loading}
                   />
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

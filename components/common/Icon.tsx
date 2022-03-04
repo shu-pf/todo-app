@@ -4,6 +4,7 @@ import Check from './icons/check.svg';
 import Create from './icons/create.svg';
 import Delete from './icons/delete.svg';
 import Error from './icons/error.svg';
+import ExpandMore from './icons/expand-more.svg';
 import Home from './icons/home.svg';
 import Kitchen from './icons/kitchen.svg';
 import Layers from './icons/layers.svg';
@@ -26,6 +27,7 @@ const Icons = {
   Layers,
   List,
   Create,
+  ExpandMore,
 } as const;
 
 export type IconNames = keyof typeof Icons;
