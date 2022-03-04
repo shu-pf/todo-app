@@ -14,6 +14,8 @@ export const AddCategoryInput = ({ className, onClose, ...props }: Props) => {
       className={className}
       css={css`
         position: relative;
+        display: flex;
+        align-items: center;
       `}
     >
       <Icon
@@ -23,7 +25,6 @@ export const AddCategoryInput = ({ className, onClose, ...props }: Props) => {
           right: 4px;
           top: 50%;
           transform: translateY(-50%);
-          vertical-align: middle;
           path {
             fill: ${theme.colors.secondary.white54};
           }
@@ -33,8 +34,8 @@ export const AddCategoryInput = ({ className, onClose, ...props }: Props) => {
       ></Icon>
       <Icon
         css={css`
+          flex-shrink: 0;
           margin-right: 23px;
-          vertical-align: middle;
         `}
         name="Layers"
       />
@@ -45,8 +46,7 @@ export const AddCategoryInput = ({ className, onClose, ...props }: Props) => {
           color: ${theme.colors.secondary.white54};
           border-radius: 5px;
           padding: 4px 8px;
-          vertical-align: middle;
-          width: calc(100% - 28px - 23px);
+          width: 100%;
         `}
         {...props}
       />
