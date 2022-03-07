@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
-type Props = JSX.IntrinsicElements['input'];
 
-export const DateInput = ({ ...props }: Props) => {
+interface Props {
+  value: JSX.IntrinsicElements['input']['value'];
+  onChange: JSX.IntrinsicElements['input']['onChange'];
+}
+
+export const DateInput = ({ ...inputProps }: Props) => {
   return (
     <input
       type="date"
-      {...props}
       css={(theme: Theme) =>
         css`
           display: block;
@@ -19,6 +22,7 @@ export const DateInput = ({ ...props }: Props) => {
           color: ${theme.colors.text.navy};
         `
       }
+      {...inputProps}
     ></input>
   );
 };

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, Theme } from '@emotion/react';
 
-import { Icon, IconNames } from './Icon';
+import { Icon, IconNames } from '../data-display/Icon';
 interface ButtonProps {
   label: string;
   variant?: 'primary' | 'error' | 'outlined' | 'underlined';

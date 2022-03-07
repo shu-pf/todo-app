@@ -2,47 +2,48 @@
 import { css, Theme } from '@emotion/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { Icon } from './Icon';
+import { Icon } from '../data-display/Icon';
 
-interface Option {
+export interface Option {
   value: string;
   key: string;
 }
 
 interface Props {
-  name: string;
   value?: string;
   options: Option[];
   placeholder?: string;
-  onSelect?: (value: string) => void;
+  onChange?: (option: Option) => void;
 }
 
 interface OptionProps {
-  topPx: number | undefined;
+  divRef: HTMLDivElement | null;
   options: Option[];
-  onSelect: (value: string) => void;
+  onSelect: (option: Option) => void;
   onCancel: () => void;
   active: boolean;
 }
 
-const Options = ({ topPx, active, options, onSelect, onCancel }: OptionProps) => {
+const Options = ({ divRef, active, options, onSelect, onCancel }: OptionProps) => {
   const [optionsTopPixel, setOptionsTopPixel] = useState(0);
   const optionsRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (!optionsRef.current || !topPx) {
+    if (!optionsRef.current || !divRef) {
       return;
     }
 
     if (active) {
       const optionsElementHeight = optionsRef.current.offsetHeight;
-      const remainingHeight = window.innerHeight - topPx;
+      const remainingHeight = window.innerHeight - divRef.getBoundingClientRect().top;
 
       if (remainingHeight < optionsElementHeight) {
         setOptionsTopPixel(remainingHeight - optionsElementHeight);
+      } else {
+        setOptionsTopPixel(0);
       }
     }
-  }, [active, topPx]);
+  }, [active, divRef]);
 
   if (!active) {
     return <></>;
@@ -84,7 +85,7 @@ const Options = ({ topPx, active, options, onSelect, onCancel }: OptionProps) =>
               `,
             ]}
             key={option.key}
-            onClick={() => onSelect(option.value)}
+            onClick={() => onSelect(option)}
           >
             {option.value}
           </li>
@@ -105,15 +106,15 @@ const Options = ({ topPx, active, options, onSelect, onCancel }: OptionProps) =>
   );
 };
 
-export const Select = ({ name, value = '', options, onSelect, placeholder = '' }: Props) => {
+export const Select = ({ value = '', options, onChange, placeholder = '' }: Props) => {
   const [active, setActive] = useState(false);
-
-  const divRef = useRef<HTMLDivElement>(null);
   const [localValue, setLocalValue] = useState('');
 
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
+
+  const divRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -123,14 +124,6 @@ export const Select = ({ name, value = '', options, onSelect, placeholder = '' }
           position: relative;
         `}
       >
-        <input
-          name={name}
-          css={css`
-            display: none;
-          `}
-          type="text"
-          value={localValue}
-        />
         <div
           css={(theme: Theme) => css`
             display: flex;
@@ -165,12 +158,12 @@ export const Select = ({ name, value = '', options, onSelect, placeholder = '' }
         </div>
         <Options
           options={options}
-          onSelect={(value) => {
+          onSelect={(option) => {
             setActive(false);
-            setLocalValue(value);
-            onSelect && onSelect(value);
+            setLocalValue(option.value);
+            onChange && onChange(option);
           }}
-          topPx={divRef.current?.getBoundingClientRect().top}
+          divRef={divRef.current}
           active={active}
           onCancel={() => setActive(false)}
         />

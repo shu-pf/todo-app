@@ -2,17 +2,16 @@
 import { css, Theme, useTheme } from '@emotion/react';
 import { FormEventHandler, useMemo } from 'react';
 
-type Props = {
-  type: 'text' | 'email' | 'password';
-  name: string;
-  placeholder?: string;
-  required?: boolean;
+interface Props {
+  type: Extract<JSX.IntrinsicElements['input']['type'], 'text' | 'email' | 'password'>;
+  placeholder?: JSX.IntrinsicElements['input']['placeholder'];
+  required?: JSX.IntrinsicElements['input']['required'];
+  value?: JSX.IntrinsicElements['input']['value'];
+  onChange?: FormEventHandler<HTMLInputElement>;
   variant?: 'default' | 'outlined';
   size?: 'large' | 'small';
   className?: string;
-  value?: string;
-  onInput?: FormEventHandler<HTMLInputElement>;
-};
+}
 
 const sizeStyles = {
   large: css`
@@ -51,7 +50,7 @@ export const TextInput = ({
   size = 'large',
   variant = 'default',
   className,
-  ...rest
+  ...inputProps
 }: Props) => {
   const theme = useTheme();
   const serializedStyles = useMemo(() => style(theme), [theme]);
@@ -61,7 +60,7 @@ export const TextInput = ({
       className={className}
       type={type}
       css={[serializedStyles[variant], sizeStyles[size]]}
-      {...rest}
+      {...inputProps}
     />
   );
 };
