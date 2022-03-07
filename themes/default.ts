@@ -26,6 +26,7 @@ export const defaultTheme = {
       yellow: '#FFDF6F',
       black40: 'rgba(0, 0, 0, 0.4)',
       black55: 'rgba(0, 0, 0, 0.55)',
+      black41: 'rgba(0, 0, 0, 0.41)',
       navy40: 'rgba(0, 33, 77, 0.4)',
       pink70: 'rgba(255, 84, 112, 0.7)',
       red30: 'rgba(166, 57, 75, 0.3)',
