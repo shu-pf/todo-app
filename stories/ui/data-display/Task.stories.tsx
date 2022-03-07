@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import { Task } from '../../components/index/Task';
+import { Task } from '../../../components/ui/data-display/Task';
 
 const meta: ComponentMeta<typeof Task> = {
   component: Task,

@@ -3,7 +3,7 @@ import { css, Theme } from '@emotion/react';
 import { MouseEventHandler } from 'react';
 import { useEffect, useState } from 'react';
 
-import { Icon, IconNames } from '../../common/Icon';
+import { Icon, IconNames } from '../../ui/data-display/Icon';
 
 interface CategoryListItemProps {
   name: string;

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { useCategoryList } from '../../../data/category';
-import { Spinner } from '../../common/Spinner';
+import { useCategoryList } from '../../../data/hooks';
+import { Spinner } from '../../ui/feedback/Spinner';
 
 import { CategoryListItem } from './CategoryListItem';
 

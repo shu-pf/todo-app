@@ -3,7 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
-import { AuthProvider } from '../providers/AuthProvider';
+import { AuthProvider } from '../components/provider/AuthProvider';
 import { GlobalStyle } from '../styles/globals';
 import { defaultTheme } from '../themes/default';
 
@@ -18,8 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <RecoilRoot>
         <AuthProvider>
-          <Global styles={GlobalStyle} />
           <ThemeProvider theme={defaultTheme}>
+            <Global styles={GlobalStyle} />
             <Component {...pageProps} />
           </ThemeProvider>
         </AuthProvider>
