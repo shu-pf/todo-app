@@ -5,6 +5,10 @@ import { Global } from '@emotion/react';
 import { GlobalStyle } from '../styles/globals';
 import * as NextImage from 'next/image';
 import { RecoilRoot } from 'recoil';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+
+// Initialize MSW
+initialize();
 
 const OriginalNextImage = NextImage.default;
 Object.defineProperty(NextImage, 'default', {
@@ -23,11 +27,12 @@ export const parameters = {
 };
 
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <>
       <RecoilRoot>
-        <Global styles={GlobalStyle} />
         <ThemeProvider theme={defaultTheme}>
+          <Global styles={GlobalStyle} />
           <Story />
         </ThemeProvider>
       </RecoilRoot>
