@@ -11,7 +11,7 @@ interface ResponseData {
   token: string;
 }
 
-export const getToken = async ({ email, password }: Params) => {
+export const createToken = async ({ email, password }: Params) => {
   const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/users/login', {
     method: 'post',
     headers: {
