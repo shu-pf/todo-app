@@ -2,7 +2,7 @@
 import { css, Theme } from '@emotion/react';
 
 interface Props {
-  value: JSX.IntrinsicElements['input']['value'];
+  value: Extract<JSX.IntrinsicElements['input']['value'], string>;
   onChange: JSX.IntrinsicElements['input']['onChange'];
 }
 
