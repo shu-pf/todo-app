@@ -50,8 +50,8 @@ export const getFetcher = () => {
   };
 };
 
-export const getAuthenticatedFetcher = (token: string) => {
-  return async (resource: string, init?: RequestInit) => {
+export const getAuthenticatedFetcher = <ResponseData>(token: string) => {
+  return async (resource: string, init?: RequestInit): Promise<ResponseData> => {
     const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
       headers: {
         'Content-Type': 'application/json',

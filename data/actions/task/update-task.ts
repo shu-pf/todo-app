@@ -22,18 +22,27 @@ interface ResponseData {
   detail: string;
 }
 
-export const updateTask = async ({ token, task, taskId }: Params) => {
-  const fetcher = getAuthenticatedFetcher(token);
+interface RequestData {
+  title: string;
+  category: string;
+  limit: string;
+  detail: string;
+}
 
-  const responseData = (await fetcher(`/api/tasks${taskId}`, {
+export const updateTask = async ({ token, task, taskId }: Params) => {
+  const fetcher = getAuthenticatedFetcher<ResponseData>(token);
+
+  const requestData: RequestData = {
+    title: titleSerializer({ title: task.title, checked: task.checked }),
+    category: task.category,
+    limit: task.limit,
+    detail: task.detail,
+  };
+
+  const responseData = await fetcher(`/api/tasks${taskId}`, {
     method: 'patch',
-    body: JSON.stringify({
-      title: titleSerializer({ title: task.title, checked: task.checked }),
-      category: task.category,
-      limit: task.limit,
-      detail: task.detail,
-    }),
-  })) as ResponseData;
+    body: JSON.stringify(requestData),
+  });
 
   mutate('/api/tasks');
   mutate(`/api/tasks/${taskId}`, responseData, false);
