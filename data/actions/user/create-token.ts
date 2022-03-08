@@ -1,30 +1,30 @@
+import { getFetcher } from '../../libs/fetchers';
+
 interface Params {
   email: string;
   password: string;
 }
 
-interface ResponseDataError {
-  message: string;
+interface RequestData {
+  email: string;
+  password: string;
 }
-
 interface ResponseData {
   token: string;
 }
 
 export const createToken = async ({ email, password }: Params) => {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + '/api/users/login', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
+  const fetcher = getFetcher<ResponseData>();
+
+  const requestData: RequestData = {
+    email,
+    password,
+  };
+
+  const responseData = await fetcher('/api/users/login', {
+    method: 'POST',
+    body: JSON.stringify(requestData),
   });
 
-  if (!response.ok) {
-    const data = (await response.json()) as ResponseDataError;
-    throw Error(data.message);
-  }
-
-  const data = (await response.json()) as ResponseData;
-  return data;
+  return responseData;
 };

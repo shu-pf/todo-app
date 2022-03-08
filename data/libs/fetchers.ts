@@ -16,8 +16,8 @@ export class HttpError extends Error {
   }
 }
 
-export const getFetcher = () => {
-  return async (resource: string, init?: RequestInit) => {
+export const getFetcher = <RequestData>() => {
+  return async (resource: string, init?: RequestInit): Promise<RequestData> => {
     const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
       headers: {
         'Content-Type': 'application/json',
