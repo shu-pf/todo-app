@@ -60,6 +60,18 @@ const middleware: Middleware = () => {
   };
 };
 
+const loadingMiddleware: Middleware = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (): SWRResponse<any, any> => {
+    return {
+      data: undefined,
+      error: undefined,
+      mutate: () => Promise.resolve(),
+      isValidating: false,
+    };
+  };
+};
+
 export const Default = Template.bind({});
 Default.args = {
   taskId: 'pirgnojgn',
@@ -84,6 +96,14 @@ Default.parameters = {
     ],
   },
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  taskId: 'pirgnojgn',
+};
+Loading.decorators = [
+  (story) => <SWRConfig value={{ use: [loadingMiddleware] }}>{story()}</SWRConfig>,
+];
 
 export const HttpError = Template.bind({});
 HttpError.args = {

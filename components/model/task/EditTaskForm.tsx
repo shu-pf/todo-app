@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, Theme } from '@emotion/react';
+import { css, Theme, useTheme } from '@emotion/react';
 import { FormEventHandler, MouseEventHandler, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -9,6 +9,7 @@ import { useCategoryList, useTask } from '../../../data/hooks';
 import { HttpError } from '../../../data/libs/fetchers';
 import { userTokenState } from '../../../states';
 import { Icon } from '../../ui/data-display/Icon';
+import { Spinner } from '../../ui/feedback/Spinner';
 import { Button } from '../../ui/input/Button';
 import { DateInput } from '../../ui/input/DateInput';
 import { Select, Option } from '../../ui/input/Select';
@@ -33,8 +34,8 @@ export const EditTaskForm = ({
   onSubmitted,
   onDeleted,
 }: EditTaskFormProps) => {
-  const { categories } = useCategoryList();
-  const { task, isLoading } = useTask(taskId);
+  const { categories, isLoading: categoryIsLoading } = useCategoryList();
+  const { task, isLoading: taskIsLoading } = useTask(taskId);
   const [options, setOptions] = useState<Option[]>([]);
   const userToken = useRecoilValue(userTokenState);
 
@@ -43,6 +44,8 @@ export const EditTaskForm = ({
   const [limit, setLimit] = useState('');
   const [detail, setDetail] = useState('');
   const [checked, setChecked] = useState(false);
+
+  const theme = useTheme();
 
   useEffect(() => {
     if (!task) {
@@ -55,7 +58,7 @@ export const EditTaskForm = ({
     setDetail(task.detail);
     setChecked(task.checked);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [taskIsLoading]);
 
   useEffect(() => {
     if (categories) {
@@ -148,118 +151,131 @@ export const EditTaskForm = ({
         </button>
       </div>
       {/* body */}
-      <div
-        css={css`
-          padding: 32px 21px;
-        `}
-      >
+      {categoryIsLoading || taskIsLoading ? (
         <div
           css={css`
-            margin-bottom: 12px;
-            position: relative;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
           `}
         >
-          <Icon
-            css={(theme: Theme) => css`
-              position: absolute;
-              right: 0;
-              cursor: pointer;
-              &:hover {
-                path {
-                  fill: ${theme.colors.primary.pink};
-                }
-              }
+          <Spinner color={theme.colors.text.navy}></Spinner>
+        </div>
+      ) : (
+        <div
+          css={css`
+            padding: 32px 21px;
+          `}
+        >
+          <div
+            css={css`
+              margin-bottom: 12px;
+              position: relative;
             `}
-            name="Delete"
-            onClick={onDelete}
-          />
-          <label>
-            <span css={labelStyle}>Title</span>
-            <TextInput
-              size="small"
-              type="text"
+          >
+            <Icon
               css={(theme: Theme) => css`
-                display: block;
-                width: 100%;
-                color: ${theme.colors.text.navy};
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+                &:hover {
+                  path {
+                    fill: ${theme.colors.primary.pink};
+                  }
+                }
               `}
-              variant="outlined"
-              value={title}
-              onChange={(e) => {
-                setTitle(e.currentTarget.value);
-              }}
-              required
+              name="Delete"
+              onClick={onDelete}
             />
-          </label>
-        </div>
-        <div
-          css={css`
-            margin-bottom: 12px;
-          `}
-        >
-          <label>
-            <span css={labelStyle}>
-              Category
-              <Select
-                options={options}
-                placeholder="カテゴリーを選択してください"
-                value={category}
-                onChange={(option) => {
-                  setCategory(option.value);
+            <label>
+              <span css={labelStyle}>Title</span>
+              <TextInput
+                size="small"
+                type="text"
+                css={(theme: Theme) => css`
+                  display: block;
+                  width: 100%;
+                  color: ${theme.colors.text.navy};
+                `}
+                variant="outlined"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.currentTarget.value);
                 }}
+                required
               />
-            </span>
-          </label>
-        </div>
-        <div
-          css={css`
-            margin-bottom: 12px;
-          `}
-        >
-          <label>
-            <span css={labelStyle}>
-              Dead line
-              <DateInput value={limit} onChange={(e) => setLimit(e.currentTarget.value)} />
-            </span>
-          </label>
-        </div>
-        <div
-          css={(theme: Theme) => css`
-            padding-bottom: 12px;
-            border-bottom: 1px solid ${theme.colors.component.lighterLightGray};
-          `}
-        >
-          <label>
-            <span css={labelStyle}>
-              Detail
-              <Textarea value={detail} onChange={(e) => setDetail(e.currentTarget.value)} />
-            </span>
-          </label>
-        </div>
-        <div
-          css={css`
-            margin-top: 12px;
-          `}
-        >
-          <Button
-            label="Cancel"
-            variant="outlined"
+            </label>
+          </div>
+          <div
             css={css`
-              width: calc(50% - 2px);
-              margin-right: 4px;
+              margin-bottom: 12px;
             `}
-            onClick={onCancel}
-          />
-          <Button
-            type="submit"
-            label="Update"
-            variant="primary"
+          >
+            <label>
+              <span css={labelStyle}>
+                Category
+                <Select
+                  options={options}
+                  placeholder="カテゴリーを選択してください"
+                  value={category}
+                  onChange={(option) => {
+                    setCategory(option.value);
+                  }}
+                />
+              </span>
+            </label>
+          </div>
+          <div
             css={css`
-              width: calc(50% - 2px);
+              margin-bottom: 12px;
             `}
-          />
+          >
+            <label>
+              <span css={labelStyle}>
+                Dead line
+                <DateInput value={limit} onChange={(e) => setLimit(e.currentTarget.value)} />
+              </span>
+            </label>
+          </div>
+          <div
+            css={(theme: Theme) => css`
+              padding-bottom: 12px;
+              border-bottom: 1px solid ${theme.colors.component.lighterLightGray};
+            `}
+          >
+            <label>
+              <span css={labelStyle}>
+                Detail
+                <Textarea value={detail} onChange={(e) => setDetail(e.currentTarget.value)} />
+              </span>
+            </label>
+          </div>
+          <div
+            css={css`
+              margin-top: 12px;
+            `}
+          >
+            <Button
+              label="Cancel"
+              variant="outlined"
+              css={css`
+                width: calc(50% - 2px);
+                margin-right: 4px;
+              `}
+              onClick={onCancel}
+            />
+            <Button
+              type="submit"
+              label="Update"
+              variant="primary"
+              css={css`
+                width: calc(50% - 2px);
+              `}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </form>
   );
 };
