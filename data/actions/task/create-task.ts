@@ -14,17 +14,26 @@ interface Params {
   };
 }
 
+interface RequestData {
+  title: string;
+  category: string;
+  limit: string;
+  detail: string;
+}
+
 export const createTask = async ({ token, task }: Params) => {
   const fetcher = getAuthenticatedFetcher(token);
 
+  const requestData: RequestData = {
+    title: titleSerializer({ title: task.title, checked: task.checked }),
+    category: task.category,
+    limit: task.limit,
+    detail: task.detail,
+  };
+
   await fetcher('/api/tasks', {
     method: 'post',
-    body: JSON.stringify({
-      title: titleSerializer({ title: task.title, checked: task.checked }),
-      category: task.category,
-      limit: task.limit,
-      detail: task.detail,
-    }),
+    body: JSON.stringify(requestData),
   });
 
   mutate('/api/tasks');
