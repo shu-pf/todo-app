@@ -16,12 +16,19 @@ export class HttpError extends Error {
   }
 }
 
-export const getFetcher = <RequestData>() => {
-  return async (resource: string, init?: RequestInit): Promise<RequestData> => {
+export const getFetcher = <RequestData, ResponseData>() => {
+  return async (
+    resource: string,
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+    data?: RequestData,
+    init?: RequestInit
+  ): Promise<ResponseData> => {
     const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
       headers: {
         'Content-Type': 'application/json',
       },
+      method,
+      body: JSON.stringify(data),
       ...init,
     });
 
@@ -50,13 +57,20 @@ export const getFetcher = <RequestData>() => {
   };
 };
 
-export const getAuthenticatedFetcher = <ResponseData>(token: string) => {
-  return async (resource: string, init?: RequestInit): Promise<ResponseData> => {
+export const getAuthenticatedFetcher = <RequestData, ResponseData>(token: string) => {
+  return async (
+    resource: string,
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+    data?: RequestData,
+    init?: RequestInit
+  ): Promise<ResponseData> => {
     const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
+      method,
+      body: JSON.stringify(data),
       ...init,
     });
 

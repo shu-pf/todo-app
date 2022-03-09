@@ -11,15 +11,15 @@ interface RequestData {
   name: string;
 }
 
+interface ResponseData {
+  id: string;
+  name: string;
+}
+
 export const createCategory = async ({ name, token }: Params) => {
-  const fetcher = getAuthenticatedFetcher(token);
+  const fetcher = getAuthenticatedFetcher<RequestData, ResponseData>(token);
 
-  const requestData: RequestData = { name };
-
-  await fetcher('/api/categories', {
-    method: 'post',
-    body: JSON.stringify(requestData),
-  });
+  await fetcher('/api/categories', 'POST', { name });
 
   mutate('/api/categories');
 };

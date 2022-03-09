@@ -10,9 +10,7 @@ interface Params {
 export const deleteTask = async ({ token, taskId }: Params) => {
   const fetcher = getAuthenticatedFetcher(token);
 
-  await fetcher(`/api/tasks/${taskId}`, {
-    method: 'delete',
-  });
+  await fetcher(`/api/tasks/${taskId}`, 'DELETE');
 
   mutate('/api/tasks');
 };
