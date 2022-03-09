@@ -17,7 +17,7 @@ interface ResponseData {
 }
 
 export const createCategory = async ({ name, token }: Params) => {
-  const fetcher = getAuthenticatedFetcher<RequestData, ResponseData>(token);
+  const fetcher = getAuthenticatedFetcher<ResponseData, RequestData>(token);
 
   await fetcher('/api/categories', 'POST', { name });
 

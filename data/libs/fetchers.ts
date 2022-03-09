@@ -16,7 +16,7 @@ export class HttpError extends Error {
   }
 }
 
-export const getFetcher = <RequestData, ResponseData>() => {
+export const getFetcher = <ResponseData, RequestData = undefined>() => {
   return async (
     resource: string,
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
@@ -57,7 +57,7 @@ export const getFetcher = <RequestData, ResponseData>() => {
   };
 };
 
-export const getAuthenticatedFetcher = <RequestData, ResponseData>(token: string) => {
+export const getAuthenticatedFetcher = <ResponseData, RequestData = undefined>(token: string) => {
   return async (
     resource: string,
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',

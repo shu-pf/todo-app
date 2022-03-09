@@ -30,7 +30,7 @@ interface RequestData {
 }
 
 export const updateTask = async ({ token, task, taskId }: Params) => {
-  const fetcher = getAuthenticatedFetcher<RequestData, ResponseData>(token);
+  const fetcher = getAuthenticatedFetcher<ResponseData, RequestData>(token);
 
   const requestData = {
     title: titleSerializer({ title: task.title, checked: task.checked }),

@@ -31,7 +31,7 @@ interface ResponseData {
 }
 
 export const createTask = async ({ token, task }: Params) => {
-  const fetcher = getAuthenticatedFetcher<RequestData, ResponseData>(token);
+  const fetcher = getAuthenticatedFetcher<ResponseData, RequestData>(token);
 
   const requestData: RequestData = {
     title: titleSerializer({ title: task.title, checked: task.checked }),
