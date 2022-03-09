@@ -57,7 +57,7 @@ const Options = ({ divRef, active, options, onSelect, onCancel }: OptionProps) =
             position: absolute;
             box-shadow: 0px 0px 13px ${theme.colors.component.shadowBlack};
             background-color: ${theme.colors.secondary.white};
-            padding: 6px;
+            padding: 6px 12px;
             border-radius: 5px;
             top: ${optionsTopPixel}px;
             left: 0;
@@ -133,7 +133,7 @@ export const Select = ({ value = '', options, onChange, placeholder = '' }: Prop
             border: 1px solid ${theme.colors.component.lighterLightGray};
             background-color: ${theme.colors.secondary.white};
             border-radius: 5px;
-            padding: 6px;
+            padding: 6px 8px 6px 13px;
             cursor: pointer;
             color: ${theme.colors.text.navy};
           `}
