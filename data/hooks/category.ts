@@ -12,7 +12,7 @@ interface Category {
 export const useCategoryList = () => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR<Category[]>('/api/categories', getAuthenticatedFetcher(userToken));
+  const { data, error } = useSWR('/api/categories', getAuthenticatedFetcher<Category[]>(userToken));
 
   return {
     categories: data,

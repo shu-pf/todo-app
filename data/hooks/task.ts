@@ -37,9 +37,9 @@ function parseTasks(tasks: BeforeParseTasks) {
 export const useTaskList = () => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR<BeforeParseTasks>(
+  const { data, error } = useSWR(
     '/api/tasks',
-    getAuthenticatedFetcher(userToken)
+    getAuthenticatedFetcher<BeforeParseTasks>(userToken)
   );
 
   return {
@@ -64,9 +64,9 @@ function parseTask(task: BeforeParseTask) {
 export const useTask = (taskId: string) => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR<BeforeParseTask>(
+  const { data, error } = useSWR(
     `/api/tasks/${taskId}`,
-    getAuthenticatedFetcher(userToken)
+    getAuthenticatedFetcher<BeforeParseTask>(userToken)
   );
 
   return {
