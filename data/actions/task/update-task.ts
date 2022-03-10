@@ -1,6 +1,6 @@
 import { mutate } from 'swr';
 
-import { getAuthenticatedFetcher } from '../../libs/fetchers';
+import { authenticatedFetcher } from '../../libs/fetchers';
 import { titleSerializer } from '../../libs/title-serializer';
 
 interface Params {
@@ -30,8 +30,6 @@ interface RequestData {
 }
 
 export const updateTask = async ({ token, task, taskId }: Params) => {
-  const fetcher = getAuthenticatedFetcher<ResponseData, RequestData>(token);
-
   const requestData = {
     title: titleSerializer({ title: task.title, checked: task.checked }),
     category: task.category,
@@ -39,7 +37,12 @@ export const updateTask = async ({ token, task, taskId }: Params) => {
     detail: task.detail,
   };
 
-  const responseData = await fetcher(`/api/tasks${taskId}`, 'PATCH', requestData);
+  const responseData = await authenticatedFetcher<ResponseData, RequestData>(
+    `/api/tasks${taskId}`,
+    token,
+    'PATCH',
+    requestData
+  );
 
   mutate('/api/tasks');
   mutate(`/api/tasks/${taskId}`, responseData, false);

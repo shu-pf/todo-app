@@ -1,4 +1,4 @@
-import { getFetcher } from '../../libs/fetchers';
+import { fetcher } from '../../libs/fetchers';
 
 interface Params {
   email: string;
@@ -14,9 +14,7 @@ interface ResponseData {
 }
 
 export const createToken = async ({ email, password }: Params) => {
-  const fetcher = getFetcher<ResponseData, RequestData>();
-
-  const responseData = await fetcher('/api/users/login', 'POST', {
+  const responseData = await fetcher<ResponseData, RequestData>('/api/users/login', 'POST', {
     email,
     password,
   });

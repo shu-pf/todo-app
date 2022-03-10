@@ -1,6 +1,6 @@
 import { mutate } from 'swr';
 
-import { getAuthenticatedFetcher } from '../../libs/fetchers';
+import { authenticatedFetcher } from '../../libs/fetchers';
 
 interface Params {
   name: string;
@@ -17,9 +17,7 @@ interface ResponseData {
 }
 
 export const createCategory = async ({ name, token }: Params) => {
-  const fetcher = getAuthenticatedFetcher<ResponseData, RequestData>(token);
-
-  await fetcher('/api/categories', 'POST', { name });
+  await authenticatedFetcher<ResponseData, RequestData>('/api/categories', token, 'POST', { name });
 
   mutate('/api/categories');
 };

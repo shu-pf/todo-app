@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 
 import { userTokenState } from '../../states';
-import { getAuthenticatedFetcher } from '../libs/fetchers';
+import { authenticatedFetcher } from '../libs/fetchers';
 
 interface Category {
   id: string;
@@ -12,10 +12,7 @@ interface Category {
 export const useCategoryList = () => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR(
-    ['/api/categories', userToken],
-    getAuthenticatedFetcher<Category[]>(userToken)
-  );
+  const { data, error } = useSWR<Category[]>(['/api/categories', userToken], authenticatedFetcher);
 
   return {
     categories: data,

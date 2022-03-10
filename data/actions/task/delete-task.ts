@@ -1,6 +1,6 @@
 import { mutate } from 'swr';
 
-import { getAuthenticatedFetcher } from '../../libs/fetchers';
+import { authenticatedFetcher } from '../../libs/fetchers';
 
 interface Params {
   token: string;
@@ -8,9 +8,7 @@ interface Params {
 }
 
 export const deleteTask = async ({ token, taskId }: Params) => {
-  const fetcher = getAuthenticatedFetcher(token);
-
-  await fetcher(`/api/tasks/${taskId}`, 'DELETE');
+  await authenticatedFetcher(`/api/tasks/${taskId}`, token, 'DELETE');
 
   mutate('/api/tasks');
 };

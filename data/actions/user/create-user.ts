@@ -1,4 +1,4 @@
-import { getFetcher } from '../../libs/fetchers';
+import { fetcher } from '../../libs/fetchers';
 
 interface Params {
   email: string;
@@ -15,9 +15,7 @@ interface RequestData {
 }
 
 export const createUser = async ({ email, password }: Params) => {
-  const fetcher = getFetcher<ResponseData, RequestData>();
-
-  const responseData = await fetcher('/api/users', 'POST', {
+  const responseData = await fetcher<ResponseData, RequestData>('/api/users', 'POST', {
     email,
     password,
   });

@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 
 import { userTokenState } from '../../states';
-import { getAuthenticatedFetcher } from '../libs/fetchers';
+import { authenticatedFetcher } from '../libs/fetchers';
 import { titleDeserializer } from '../libs/title-serializer';
 
 type BeforeParseTasks = Array<{
@@ -37,10 +37,7 @@ function parseTasks(tasks: BeforeParseTasks) {
 export const useTaskList = () => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR(
-    ['/api/tasks', userToken],
-    getAuthenticatedFetcher<BeforeParseTasks>(userToken)
-  );
+  const { data, error } = useSWR<BeforeParseTasks>(['/api/tasks', userToken], authenticatedFetcher);
 
   return {
     tasks: data && parseTasks(data),
@@ -64,9 +61,9 @@ function parseTask(task: BeforeParseTask) {
 export const useTask = (taskId: string) => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<BeforeParseTask>(
     [`/api/tasks/${taskId}`, userToken],
-    getAuthenticatedFetcher<BeforeParseTask>(userToken)
+    authenticatedFetcher
   );
 
   return {

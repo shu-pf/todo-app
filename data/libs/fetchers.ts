@@ -16,85 +16,82 @@ export class HttpError extends Error {
   }
 }
 
-export const getFetcher = <ResponseData, RequestData = undefined>() => {
-  return async (
-    resource: string,
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
-    data?: RequestData,
-    init?: RequestInit
-  ): Promise<ResponseData> => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method,
-      body: JSON.stringify(data),
-      ...init,
-    });
+export const fetcher = async <ResponseData, RequestData = undefined>(
+  resource: string,
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+  data?: RequestData,
+  init?: RequestInit
+): Promise<ResponseData> => {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method,
+    body: JSON.stringify(data),
+    ...init,
+  });
 
-    if (!res.ok) {
-      try {
+  if (!res.ok) {
+    try {
+      throw new HttpError({
+        message: '通信中にエラーが発生しました。',
+        data: await res.json(),
+        status: res.status,
+      });
+    } catch (e) {
+      if (e instanceof SyntaxError) {
         throw new HttpError({
           message: '通信中にエラーが発生しました。',
-          data: await res.json(),
+          data: {
+            error: 'Response is not JSON',
+          },
           status: res.status,
         });
-      } catch (e) {
-        if (e instanceof SyntaxError) {
-          throw new HttpError({
-            message: '通信中にエラーが発生しました。',
-            data: {
-              error: 'Response is not JSON',
-            },
-            status: res.status,
-          });
-        }
-        throw e;
       }
+      throw e;
     }
+  }
 
-    return res.json();
-  };
+  return res.json();
 };
 
-export const getAuthenticatedFetcher = <ResponseData, RequestData = undefined>(token: string) => {
-  return async (
-    resource: string,
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
-    data?: RequestData,
-    init?: RequestInit
-  ): Promise<ResponseData> => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-      },
-      method,
-      body: JSON.stringify(data),
-      ...init,
-    });
+export const authenticatedFetcher = async <ResponseData, RequestData = undefined>(
+  resource: string,
+  token: string,
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+  data?: RequestData,
+  init?: RequestInit
+): Promise<ResponseData> => {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_ORIGIN + resource, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+    method,
+    body: JSON.stringify(data),
+    ...init,
+  });
 
-    if (!res.ok) {
-      try {
+  if (!res.ok) {
+    try {
+      throw new HttpError({
+        message: '通信中にエラーが発生しました。',
+        data: await res.json(),
+        status: res.status,
+      });
+    } catch (e) {
+      if (e instanceof SyntaxError) {
         throw new HttpError({
           message: '通信中にエラーが発生しました。',
-          data: await res.json(),
+          data: {
+            error: 'Response is not JSON',
+          },
           status: res.status,
         });
-      } catch (e) {
-        if (e instanceof SyntaxError) {
-          throw new HttpError({
-            message: '通信中にエラーが発生しました。',
-            data: {
-              error: 'Response is not JSON',
-            },
-            status: res.status,
-          });
-        }
-        throw e;
       }
+      throw e;
     }
+  }
 
-    return res.json();
-  };
+  return res.json();
 };
