@@ -38,7 +38,7 @@ export const useTaskList = () => {
   const userToken = useRecoilValue(userTokenState);
 
   const { data, error } = useSWR(
-    '/api/tasks',
+    ['/api/tasks', userToken],
     getAuthenticatedFetcher<BeforeParseTasks>(userToken)
   );
 
