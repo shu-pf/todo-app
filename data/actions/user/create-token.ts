@@ -14,7 +14,7 @@ interface ResponseData {
 }
 
 export const createToken = async ({ email, password }: Params) => {
-  const fetcher = getFetcher<RequestData, ResponseData>();
+  const fetcher = getFetcher<ResponseData, RequestData>();
 
   const responseData = await fetcher('/api/users/login', 'POST', {
     email,
