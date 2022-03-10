@@ -62,10 +62,10 @@ export const Task = ({
   onEdit,
   onCheck,
 }: TaskProps) => {
-  // limitの形式: 2020/5/4
-  const monthIndex = Number(limit.split('/')[1]) - 1;
+  // limitの形式: 2020-5-4
+  const monthIndex = Number(limit.split('-')[1]) - 1;
   const month = monthNames[monthIndex];
-  const day = limit.split('/')[2];
+  const day = limit.split('-')[2];
 
   return (
     <div
