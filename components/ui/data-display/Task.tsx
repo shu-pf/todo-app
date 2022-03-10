@@ -77,6 +77,7 @@ export const Task = ({
         css={css`
           padding: 14px;
           display: flex;
+          width: 60px;
           flex-direction: column;
           justify-content: center;
         `}
