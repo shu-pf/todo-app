@@ -38,7 +38,7 @@ export const updateTask = async ({ token, task, taskId }: Params) => {
   };
 
   const responseData = await authenticatedFetcher<ResponseData, RequestData>(
-    `/api/tasks${taskId}`,
+    `/api/tasks/${taskId}`,
     token,
     'PATCH',
     requestData

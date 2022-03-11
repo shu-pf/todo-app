@@ -84,7 +84,7 @@ Default.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story
 Default.parameters = {
   msw: {
     handlers: [
-      rest.patch(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/taskspirgnojgn`, (req, res, ctx) => {
+      rest.patch(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/pirgnojgn`, (req, res, ctx) => {
         return res(
           ctx.status(200),
           ctx.json({
