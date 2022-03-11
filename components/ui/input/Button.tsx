@@ -10,10 +10,21 @@ interface ButtonProps {
   disabled?: JSX.IntrinsicElements['button']['disabled'];
   onClick?: JSX.IntrinsicElements['button']['onClick'];
   type?: JSX.IntrinsicElements['button']['type'];
+  size?: 'large' | 'small';
 }
 
+const sizing = {
+  large: css`
+    padding: 10px;
+  `,
+  small: css`
+    padding: 8px;
+  `,
+};
+
 const btnBaseStyle = css`
-  padding: 10px;
+  display: flex;
+  align-items: center;
   border-radius: 5px;
   transition: 0.2s;
   :hover {
@@ -106,12 +117,14 @@ export const Button = ({
   variant = 'primary',
   icon,
   type = 'button',
+  size = 'large',
   ...props
 }: ButtonProps) => {
   return (
     <button
       css={(theme: Theme) => [
         btnBaseStyle,
+        sizing[size],
         btnVariantStyles(theme)[variant],
         shadow && btnShadowStyle(theme),
         props.disabled && disabledBtnStyles(theme)[variant],

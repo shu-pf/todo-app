@@ -44,3 +44,11 @@ Icon.args = {
   variant: 'primary',
   icon: 'Add',
 };
+
+export const IconSmall = Template.bind({});
+IconSmall.args = {
+  label: 'Add Task',
+  variant: 'primary',
+  icon: 'Add',
+  size: 'small',
+};
