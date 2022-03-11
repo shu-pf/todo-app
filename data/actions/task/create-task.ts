@@ -32,10 +32,10 @@ interface ResponseData {
 
 export const createTask = async ({ token, task }: Params) => {
   const requestData: RequestData = {
-    title: titleSerializer({ title: task.title, checked: task.checked }),
+    title: titleSerializer({ title: task.title, checked: task.checked, detail: task.detail }),
     category: task.category,
     limit: task.limit,
-    detail: task.detail,
+    detail: '',
   };
 
   await authenticatedFetcher<ResponseData, RequestData>('/api/tasks', token, 'POST', requestData);

@@ -22,13 +22,14 @@ interface BeforeParseTask {
 
 function parseTasks(tasks: BeforeParseTasks) {
   return tasks?.map((task) => {
-    const { title, checked } = titleDeserializer(task.title);
+    const { title, checked, detail } = titleDeserializer(task.title);
     return {
       id: task.id,
       title,
       checked,
       category: task.category,
       limit: task.limit,
+      detail,
       created_at: new Date(task.created_at),
     };
   });
@@ -47,14 +48,14 @@ export const useTaskList = () => {
 };
 
 function parseTask(task: BeforeParseTask) {
-  const { title, checked } = titleDeserializer(task.title);
+  const { title, checked, detail } = titleDeserializer(task.title);
 
   return {
     title,
     checked,
     category: task.category,
     limit: task.limit,
-    detail: task.detail,
+    detail,
   };
 }
 
