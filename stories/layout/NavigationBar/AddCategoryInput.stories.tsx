@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import { AddCategoryInput } from '../../../components/layout/NavigationBar/AddCategoryInput';
 
 const meta: ComponentMeta<typeof AddCategoryInput> = {

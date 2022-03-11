@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { NavigationBar } from '../../components/layout/NavigationBar';
 import { Middleware, SWRConfig, SWRResponse } from 'swr';
+
+import { NavigationBar } from '../../components/layout/NavigationBar';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   component: NavigationBar,

@@ -7,9 +7,9 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { getToken } from '../../api/users';
-import { Button } from '../../components/common/Button';
-import { TextInput } from '../../components/common/TextInput';
+import { Button } from '../../components/ui/input/Button';
+import { TextInput } from '../../components/ui/input/TextInput';
+import { createToken } from '../../data/actions';
 import { userTokenState } from '../../states';
 
 const Login: NextPage = () => {
@@ -25,7 +25,7 @@ const Login: NextPage = () => {
 
     setLoading(true);
     try {
-      const data = await getToken({ email, password });
+      const data = await createToken({ email, password });
       setUserToken(data.token);
     } catch (e) {
       if (e instanceof Error) {
@@ -125,7 +125,7 @@ const Login: NextPage = () => {
                     width: 100%;
                   `}
                   value={email}
-                  onInput={(e) => setEmail(e.currentTarget.value)}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
                   required
                 />
               </div>
@@ -141,7 +141,7 @@ const Login: NextPage = () => {
                     width: 100%;
                   `}
                   value={password}
-                  onInput={(e) => setPassword(e.currentTarget.value)}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
                   required
                 />
               </div>

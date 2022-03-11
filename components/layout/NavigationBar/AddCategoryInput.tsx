@@ -1,6 +1,6 @@
 import { css, Theme } from '@emotion/react';
 
-import { Icon } from '../../common/Icon';
+import { Icon } from '../../ui/data-display/Icon';
 
 /** @jsxImportSource @emotion/react */
 type Props = JSX.IntrinsicElements['input'] & {

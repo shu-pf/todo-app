@@ -3,11 +3,10 @@ import { css, Theme } from '@emotion/react';
 import Image from 'next/image';
 import { FormEventHandler, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { mutate } from 'swr';
 
-import { createCategory } from '../../api/users/createCategory';
+import { createCategory } from '../../data/actions';
 import { userTokenState } from '../../states';
-import { Icon } from '../common/Icon';
+import { Icon } from '../ui/data-display/Icon';
 
 import { AddCategoryInput } from './NavigationBar/AddCategoryInput';
 import { CategoryList } from './NavigationBar/CategoryList';
@@ -56,7 +55,7 @@ export const NavigationBar = ({ currentCategoryId, onSelect }: NavigationBarProp
   const onCreateCategory: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     await createCategory({ name: categoryName, token: userToken });
-    mutate('/api/categories');
+
     setDisplayAddCategoryForm(false);
     setCategoryName('');
   };
@@ -151,8 +150,9 @@ export const NavigationBar = ({ currentCategoryId, onSelect }: NavigationBarProp
         >
           <Icon name="Create" />
           <span
-            css={css`
+            css={(theme: Theme) => css`
               margin-left: 20px;
+              color: ${theme.colors.secondary.white};
             `}
           >
             Add Category

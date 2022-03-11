@@ -1,7 +1,7 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import 'ress';
 
-export const GlobalStyle = css`
+export const GlobalStyle = (theme: Theme) => css`
   a {
     color: inherit;
     text-decoration: none;
@@ -11,6 +11,7 @@ export const GlobalStyle = css`
   *::after {
     font-family: 'Raleway', 'Sawarabi Gothic', sans-serif;
     letter-spacing: 0.05em;
+    color: ${theme.colors.text.navy};
   }
   li {
     list-style: none;

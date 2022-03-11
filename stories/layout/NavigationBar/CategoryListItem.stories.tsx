@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import { CategoryListItem } from '../../../components/layout/NavigationBar/CategoryListItem';
 
 const meta: ComponentMeta<typeof CategoryListItem> = {

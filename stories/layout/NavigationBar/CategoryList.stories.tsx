@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Middleware, SWRResponse, SWRConfig } from 'swr';
+
 import { CategoryList } from '../../../components/layout/NavigationBar/CategoryList';
 
 const meta: ComponentMeta<typeof CategoryList> = {

@@ -7,9 +7,9 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { createUser, getToken } from '../../api/users';
-import { Button } from '../../components/common/Button';
-import { TextInput } from '../../components/common/TextInput';
+import { Button } from '../../components/ui/input/Button';
+import { TextInput } from '../../components/ui/input/TextInput';
+import { createUser, createToken } from '../../data/actions';
 import { userTokenState } from '../../states';
 
 const Home: NextPage = () => {
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     setLoading(true);
     try {
       await createUser({ email, password });
-      const data = await getToken({ email, password });
+      const data = await createToken({ email, password });
       setUserToken(data.token);
     } catch (e) {
       if (e instanceof Error) {
@@ -124,7 +124,7 @@ const Home: NextPage = () => {
                   type="email"
                   placeholder="email"
                   value={email}
-                  onInput={(e) => setEmail(e.currentTarget.value)}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
                   css={css`
                     width: 100%;
                   `}
@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                   type="password"
                   placeholder="password"
                   value={password}
-                  onInput={(e) => setPassword(e.currentTarget.value)}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
                   css={css`
                     width: 100%;
                   `}
