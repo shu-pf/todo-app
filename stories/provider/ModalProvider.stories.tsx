@@ -52,13 +52,18 @@ const task = {
 const middleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (key): SWRResponse<any, any> => {
+    let path;
+    if (key && typeof key === 'object') {
+      path = key[0];
+    }
+
     const mockData: { [name: string]: any } = {
       '/api/tasks/pirgnojgn': task,
       '/api/categories': categories,
     };
 
     return {
-      data: mockData?.[key as string],
+      data: mockData?.[path],
       error: undefined,
       mutate: () => Promise.resolve(),
       isValidating: false,
