@@ -34,8 +34,10 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
       return;
     }
 
+    const filtered = category ? tasks.filter((task) => task.category === category) : tasks;
+
     const sortByLimit = () => {
-      const sorted = [...tasks].sort((a, b) => {
+      const sorted = [...filtered].sort((a, b) => {
         const aDate = new Date(a.limit);
         const bDate = new Date(b.limit);
         if (aDate.getTime() < bDate.getTime()) return -1;
@@ -46,7 +48,7 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
     };
 
     const sortByCreatedAt = () => {
-      const sorted = [...tasks].sort((a, b) => {
+      const sorted = [...filtered].sort((a, b) => {
         if (a.created_at.getTime() < b.created_at.getTime()) return -1;
         if (a.created_at.getTime() > b.created_at.getTime()) return 1;
         else return 0;
@@ -55,7 +57,7 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
     };
 
     const sortByCategories = () => {
-      const sorted = [...tasks].sort((a, b) => {
+      const sorted = [...filtered].sort((a, b) => {
         return a.category.localeCompare(b.category);
       });
       setSortedTasks(sorted);
@@ -68,7 +70,7 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
     } else {
       sortByLimit();
     }
-  }, [sortOption, tasks]);
+  }, [category, sortOption, tasks]);
 
   const onDelete = async (taskId: string) => {
     try {
