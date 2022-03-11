@@ -19,6 +19,12 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
   const theme = useTheme();
   const userToken = useRecoilValue(userTokenState);
 
+  const filteredTasks = tasks
+    ? tasks.filter(function (task) {
+        return task.category === category;
+      })
+    : [];
+
   const onDelete = async (taskId: string) => {
     try {
       await deleteTask({ taskId, token: userToken });
@@ -76,24 +82,43 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
 
   return (
     <>
-      {tasks?.map((task) => (
-        <div
-          key={task.id}
-          css={css`
-            margin-bottom: 24px;
-          `}
-        >
-          <Task
-            title={task.title}
-            checked={task.checked}
-            category={task.category}
-            limit={task.limit}
-            onDelete={() => onDelete(task.id)}
-            onEdit={() => onEdit({ taskId: task.id })}
-            onCheck={() => onCheck(task)}
-          />
-        </div>
-      ))}
+      {category
+        ? filteredTasks?.map((task) => (
+            <div
+              key={task.id}
+              css={css`
+                margin-bottom: 24px;
+              `}
+            >
+              <Task
+                title={task.title}
+                checked={task.checked}
+                category={task.category}
+                limit={task.limit}
+                onDelete={() => onDelete(task.id)}
+                onEdit={() => onEdit({ taskId: task.id })}
+                onCheck={() => onCheck(task)}
+              />
+            </div>
+          ))
+        : tasks?.map((task) => (
+            <div
+              key={task.id}
+              css={css`
+                margin-bottom: 24px;
+              `}
+            >
+              <Task
+                title={task.title}
+                checked={task.checked}
+                category={task.category}
+                limit={task.limit}
+                onDelete={() => onDelete(task.id)}
+                onEdit={() => onEdit({ taskId: task.id })}
+                onCheck={() => onCheck(task)}
+              />
+            </div>
+          ))}
     </>
   );
 };

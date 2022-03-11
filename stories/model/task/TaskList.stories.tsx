@@ -78,6 +78,32 @@ const loadingMiddleware: Middleware = () => {
   };
 };
 
+const successDeleteHandler = rest.delete(
+  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/*`,
+  (req, res, ctx) => {
+    return res(
+      ctx.json({
+        message: 'Successfully deleted task.',
+      })
+    );
+  }
+);
+
+const successUpdateHandler = rest.patch(
+  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/*`,
+  (req, res, ctx) => {
+    return res(
+      ctx.json({
+        title:
+          '{"title":"高沼プロジェクトを終わらせる","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
+        category: '買い物リスト',
+        limit: '2020/5/4',
+        detail: '',
+      })
+    );
+  }
+);
+
 export const AllCategories = Template.bind({});
 AllCategories.args = {
   category: '',
@@ -87,26 +113,7 @@ AllCategories.decorators = [
 ];
 AllCategories.parameters = {
   msw: {
-    handlers: [
-      rest.delete(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/*`, (req, res, ctx) => {
-        return res(
-          ctx.json({
-            message: 'Successfully deleted task.',
-          })
-        );
-      }),
-      rest.patch(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/*`, (req, res, ctx) => {
-        return res(
-          ctx.json({
-            title:
-              '{"title":"高沼プロジェクトを終わらせる","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
-            category: '買い物リスト',
-            limit: '2020/5/4',
-            detail: '',
-          })
-        );
-      }),
-    ],
+    handlers: [successDeleteHandler, successUpdateHandler],
   },
 };
 
@@ -117,3 +124,16 @@ Loading.args = {
 Loading.decorators = [
   (story) => <SWRConfig value={{ use: [loadingMiddleware] }}>{story()}</SWRConfig>,
 ];
+
+export const SelectCategory = Template.bind({});
+SelectCategory.args = {
+  category: 'Work',
+};
+SelectCategory.decorators = [
+  (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
+];
+SelectCategory.parameters = {
+  msw: {
+    handlers: [successDeleteHandler, successUpdateHandler],
+  },
+};
