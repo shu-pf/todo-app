@@ -1,13 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from '@emotion/react';
+import { css, Theme, useTheme } from '@emotion/react';
 import { useRecoilValue } from 'recoil';
 
 import { deleteTask, updateTask } from '../../../data/actions';
 import { useTaskList } from '../../../data/hooks';
 import { HttpError } from '../../../data/libs/fetchers';
 import { userTokenState } from '../../../states';
+import { Icon } from '../../ui/data-display/Icon';
 import { Task } from '../../ui/data-display/Task';
 import { Spinner } from '../../ui/feedback/Spinner';
+import { Button } from '../../ui/input/Button';
 
 interface TaskListProps {
   category: string;
@@ -67,58 +69,108 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
     }
   };
 
-  if (isLoading) {
-    return (
+  return (
+    <>
+      {/* Header */}
       <div
         css={css`
           display: flex;
-          justify-content: center;
+          align-items: flex-end;
+          margin-bottom: 12px;
         `}
       >
-        <Spinner color={theme.colors.primary.green}></Spinner>
+        <h2
+          css={css`
+            margin-right: 20px;
+          `}
+        >
+          Tasks
+        </h2>
+        <div
+          css={css`
+            display: flex;
+            flex-grow: 1;
+          `}
+        >
+          <span
+            css={(theme: Theme) => css`
+              font-weight: 300;
+              color: ${theme.colors.text.gray};
+              margin-right: 4px;
+            `}
+          >
+            Sort By
+          </span>
+          <div
+            css={css`
+              cursor: pointer;
+            `}
+          >
+            <span
+              css={(theme: Theme) =>
+                css`
+                  font-weight: bold;
+                  color: ${theme.colors.text.gray};
+                  margin-right: 4px;
+                `
+              }
+            >
+              Limit
+            </span>
+            <Icon name="ExpandMoreSmall" />
+          </div>
+        </div>
+        <Button label="Add Task" size="small" icon="Add"></Button>
       </div>
-    );
-  }
-
-  return (
-    <>
-      {category
-        ? filteredTasks?.map((task) => (
-            <div
-              key={task.id}
-              css={css`
-                margin-bottom: 24px;
-              `}
-            >
-              <Task
-                title={task.title}
-                checked={task.checked}
-                category={task.category}
-                limit={task.limit}
-                onDelete={() => onDelete(task.id)}
-                onEdit={() => onEdit({ taskId: task.id })}
-                onCheck={() => onCheck(task)}
-              />
-            </div>
-          ))
-        : tasks?.map((task) => (
-            <div
-              key={task.id}
-              css={css`
-                margin-bottom: 24px;
-              `}
-            >
-              <Task
-                title={task.title}
-                checked={task.checked}
-                category={task.category}
-                limit={task.limit}
-                onDelete={() => onDelete(task.id)}
-                onEdit={() => onEdit({ taskId: task.id })}
-                onCheck={() => onCheck(task)}
-              />
-            </div>
-          ))}
+      {/* Body */}
+      {isLoading ? (
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+          `}
+        >
+          <Spinner color={theme.colors.primary.green}></Spinner>
+        </div>
+      ) : category ? (
+        filteredTasks?.map((task) => (
+          <div
+            key={task.id}
+            css={css`
+              margin-bottom: 24px;
+            `}
+          >
+            <Task
+              title={task.title}
+              checked={task.checked}
+              category={task.category}
+              limit={task.limit}
+              onDelete={() => onDelete(task.id)}
+              onEdit={() => onEdit({ taskId: task.id })}
+              onCheck={() => onCheck(task)}
+            />
+          </div>
+        ))
+      ) : (
+        tasks?.map((task) => (
+          <div
+            key={task.id}
+            css={css`
+              margin-bottom: 24px;
+            `}
+          >
+            <Task
+              title={task.title}
+              checked={task.checked}
+              category={task.category}
+              limit={task.limit}
+              onDelete={() => onDelete(task.id)}
+              onEdit={() => onEdit({ taskId: task.id })}
+              onCheck={() => onCheck(task)}
+            />
+          </div>
+        ))
+      )}
     </>
   );
 };
