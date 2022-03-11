@@ -1,13 +1,13 @@
 import { css, Theme } from '@emotion/react';
 
-interface Option {
+export interface Option {
   key: string;
   value: string;
 }
 
 interface ToolTipProps {
   options: Option[];
-  onClick: ({ key }: { key: string; value: string }) => void;
+  onClick?: ({ key, value }: Option) => void;
 }
 
 /** @jsxImportSource @emotion/react */
@@ -47,7 +47,7 @@ export const ToolTip = ({ options, onClick }: ToolTipProps) => {
                 background-color: ${theme.colors.component.lighterLightGray};
               }
             `}
-            onClick={() => onClick({ key: option.key, value: option.value })}
+            onClick={() => onClick && onClick({ key: option.key, value: option.value })}
           >
             {option.value}
           </li>

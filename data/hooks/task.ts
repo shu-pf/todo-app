@@ -20,7 +20,17 @@ interface BeforeParseTask {
   detail: string;
 }
 
-function parseTasks(tasks: BeforeParseTasks) {
+export type AfterParseTasks = Array<{
+  id: string;
+  title: string;
+  checked: boolean;
+  category: string;
+  limit: string;
+  detail: string;
+  created_at: Date;
+}>;
+
+function parseTasks(tasks: BeforeParseTasks): AfterParseTasks {
   return tasks?.map((task) => {
     const { title, checked, detail } = titleDeserializer(task.title);
     return {

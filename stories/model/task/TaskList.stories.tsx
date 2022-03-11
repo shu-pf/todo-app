@@ -26,15 +26,15 @@ const tasks = [
       '{"title":"高沼プロジェクトを終わらせる","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
     category: 'Work',
     limit: '2020-6-11',
-    created_at: '2020-03-28T08:20:11.109Z',
+    created_at: '2020-03-27T08:20:11.109Z',
   },
   {
     id: 'zRTxMgbCsPCKsbUyU5c1',
     title:
       '{"title":"GraphQLについて勉強する","checked":true,"detail":"次はあきたこまちがいいかもしれない"}',
-    category: 'Work',
+    category: 'GraphQL',
     limit: '2020-7-15',
-    created_at: '2020-03-28T08:20:11.109Z',
+    created_at: '2020-03-26T08:20:11.109Z',
   },
   {
     id: 'zRTxMgbCsPCKsbUyU5c2',
@@ -42,7 +42,7 @@ const tasks = [
       '{"title":"ESLintについて勉強する","checked":true,"detail":"次はあきたこまちがいいかもしれない"}',
     category: 'Work',
     limit: '2020-8-23',
-    created_at: '2020-03-28T08:20:11.109Z',
+    created_at: '2020-03-25T08:20:11.109Z',
   },
 ];
 
