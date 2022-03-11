@@ -24,6 +24,7 @@ const sizing = {
 
 const btnBaseStyle = css`
   display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 5px;
   transition: 0.2s;
