@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 
@@ -49,9 +50,10 @@ export const useTaskList = () => {
   const userToken = useRecoilValue(userTokenState);
 
   const { data, error } = useSWR<BeforeParseTasks>(['/api/tasks', userToken], authenticatedFetcher);
+  const parsedTasks = useMemo(() => data && parseTasks(data), [data]);
 
   return {
-    tasks: data && parseTasks(data),
+    tasks: parsedTasks,
     isLoading: !error && !data,
     isError: error,
   };
