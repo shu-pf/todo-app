@@ -7,18 +7,21 @@ import { deleteTask, updateTask } from '../../../data/actions';
 import { AfterParseTasks, useTaskList } from '../../../data/hooks/task';
 import { HttpError } from '../../../data/libs/fetchers';
 import { userTokenState } from '../../../states';
+import { ModalProvider } from '../../provider/ModalProvider';
 import { Icon } from '../../ui/data-display/Icon';
 import { Task } from '../../ui/data-display/Task';
 import { ToolTip, Option } from '../../ui/data-display/ToolTip';
 import { Spinner } from '../../ui/feedback/Spinner';
 import { Button } from '../../ui/input/Button';
 
+import { AddTaskForm } from './AddTaskForm';
+import { EditTaskForm } from './EditTaskForm';
+
 interface TaskListProps {
   category: string;
-  onEdit: ({ taskId }: { taskId: string }) => void;
 }
 
-export const TaskList = ({ category, onEdit }: TaskListProps) => {
+export const TaskList = ({ category }: TaskListProps) => {
   const { tasks, isLoading } = useTaskList();
 
   const theme = useTheme();
@@ -28,6 +31,9 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
   const [sortOption, setSortOption] = useState<Option>({ key: 'Limit', value: 'Limit' });
 
   const [sortedTasks, setSortedTasks] = useState<AfterParseTasks>([]);
+
+  const [editModalState, setEditModalState] = useState<{ taskId: string }>({ taskId: '' });
+  const [addModalState, setAddModalState] = useState(false);
 
   useEffect(() => {
     if (!tasks) {
@@ -185,7 +191,7 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
             <Icon name="ExpandMoreSmall" />
           </div>
         </div>
-        <Button label="Add Task" size="small" icon="Add"></Button>
+        <Button label="Add Task" size="small" icon="Add" onClick={() => setAddModalState(true)} />
       </div>
       {/* Body */}
       {isLoading ? (
@@ -211,11 +217,28 @@ export const TaskList = ({ category, onEdit }: TaskListProps) => {
               category={task.category}
               limit={task.limit}
               onDelete={() => onDelete(task.id)}
-              onEdit={() => onEdit({ taskId: task.id })}
+              onEdit={() => setEditModalState({ taskId: task.id })}
               onCheck={() => onCheck(task)}
             />
           </div>
         ))
+      )}
+      {editModalState.taskId && (
+        <ModalProvider position="right" onClick={() => setEditModalState({ taskId: '' })}>
+          <EditTaskForm
+            taskId={editModalState.taskId}
+            onCancel={() => setEditModalState({ taskId: '' })}
+            onSubmitted={() => setEditModalState({ taskId: '' })}
+          />
+        </ModalProvider>
+      )}
+      {addModalState && (
+        <ModalProvider position="right" onClick={() => setAddModalState(false)}>
+          <AddTaskForm
+            onCancel={() => setAddModalState(false)}
+            onSubmitted={() => setAddModalState(false)}
+          />
+        </ModalProvider>
       )}
     </>
   );

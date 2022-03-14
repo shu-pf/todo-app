@@ -46,6 +46,36 @@ const tasks = [
   },
 ];
 
+const task = {
+  title: '{"title":"お米を買う","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
+  category: '買い物リスト',
+  limit: '2022-03-05',
+  detail: '',
+};
+
+const categories = [
+  {
+    id: 'oeijfeowijfwoeijk',
+    name: 'Work',
+  },
+  {
+    id: 'feoijfeifjeoifjk',
+    name: 'お買物リスト',
+  },
+  {
+    id: 'feoijfeoijfeoifj',
+    name: '買いたい',
+  },
+  {
+    id: 'fwoefjwlekffewogn',
+    name: 'House',
+  },
+  {
+    id: 'rigjrokanklrkwgnk',
+    name: 'その他',
+  },
+];
+
 const middleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (key): SWRResponse<any, any> => {
@@ -54,7 +84,9 @@ const middleware: Middleware = () => {
       path = key[0];
     }
     const mockData: { [name: string]: unknown } = {
+      '/api/tasks/aJDm3esbPPlGLKseXPXp': task,
       '/api/tasks': tasks,
+      '/api/categories': categories,
     };
 
     return {
@@ -104,6 +136,23 @@ const successUpdateHandler = rest.patch(
   }
 );
 
+const successTaskAddHandler = rest.post(
+  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks`,
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: 'aJDm3esbPPlGLKseXPXp',
+        title: 'お米を買う',
+        category: '買い物リスト',
+        limit: '2020/5/4',
+        detail: '次はあきたこまちがいいかもしれない',
+        created_at: '2020-03-28T07:55:21.109Z',
+      })
+    );
+  }
+);
+
 export const AllCategories = Template.bind({});
 AllCategories.args = {
   category: '',
@@ -113,7 +162,7 @@ AllCategories.decorators = [
 ];
 AllCategories.parameters = {
   msw: {
-    handlers: [successDeleteHandler, successUpdateHandler],
+    handlers: [successDeleteHandler, successUpdateHandler, successTaskAddHandler],
   },
 };
 
