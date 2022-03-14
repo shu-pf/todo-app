@@ -37,10 +37,11 @@ const categories = [
 ];
 
 const task = {
-  title: '{"title":"お米を買う","checked":false}',
+  title:
+    '{"title":"高沼プロジェクトを終わらせる","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
   category: '買い物リスト',
   limit: '2022-03-05',
-  detail: '次はあきたこまちがいいかもしれない',
+  detail: '',
 };
 
 const middleware: Middleware = () => {
