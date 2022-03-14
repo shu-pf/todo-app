@@ -58,7 +58,7 @@ const middleware: Middleware = () => {
       path = key[0];
     }
 
-    const mockData: { [name: string]: any } = {
+    const mockData: { [name: string]: unknown } = {
       '/api/tasks/pirgnojgn': task,
       '/api/categories': categories,
     };
