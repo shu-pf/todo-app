@@ -11,6 +11,7 @@ interface ButtonProps {
   onClick?: JSX.IntrinsicElements['button']['onClick'];
   type?: JSX.IntrinsicElements['button']['type'];
   size?: 'large' | 'small';
+  width?: string;
 }
 
 const sizing = {
@@ -119,6 +120,7 @@ export const Button = ({
   icon,
   type = 'button',
   size = 'large',
+  width,
   ...props
 }: ButtonProps) => {
   return (
@@ -129,6 +131,10 @@ export const Button = ({
         btnVariantStyles(theme)[variant],
         shadow && btnShadowStyle(theme),
         props.disabled && disabledBtnStyles(theme)[variant],
+        width &&
+          css`
+            width: ${width};
+          `,
       ]}
       type={type}
       {...props}

@@ -52,3 +52,9 @@ IconSmall.args = {
   icon: 'Add',
   size: 'small',
 };
+
+export const Width100 = Template.bind({});
+Width100.args = {
+  label: 'Button',
+  width: '100%',
+};
