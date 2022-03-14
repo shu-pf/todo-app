@@ -4,6 +4,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 import { AddTaskForm } from '../../components/model/task/AddTaskForm';
 import { EditTaskForm } from '../../components/model/task/EditTaskForm';
 import { ModalProvider } from '../../components/provider/ModalProvider';
+import { Alert } from '../../components/ui/utils/Alert';
 
 const meta: ComponentMeta<typeof ModalProvider> = {
   component: ModalProvider,
@@ -90,3 +91,11 @@ EditTaskFormModal.args = {
 EditTaskFormModal.decorators = [
   (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
 ];
+
+export const AlertModal = Template.bind({});
+AlertModal.args = {
+  position: 'center',
+  children: (
+    <Alert message="この操作は取り消し出来ません。カテゴリー「Work」を削除します。カテゴリーに登録されているタスクも全て削除されます。" />
+  ),
+};
