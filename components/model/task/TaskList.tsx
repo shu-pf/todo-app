@@ -13,6 +13,7 @@ import { Task } from '../../ui/data-display/Task';
 import { ToolTip, Option } from '../../ui/data-display/ToolTip';
 import { Spinner } from '../../ui/feedback/Spinner';
 import { Button } from '../../ui/input/Button';
+import { Alert } from '../../ui/utils/Alert';
 
 import { AddTaskForm } from './AddTaskForm';
 import { EditTaskForm } from './EditTaskForm';
@@ -34,6 +35,7 @@ export const TaskList = ({ category }: TaskListProps) => {
 
   const [editModalState, setEditModalState] = useState<{ taskId: string }>({ taskId: '' });
   const [addModalState, setAddModalState] = useState(false);
+  const [alertModalState, setAlertModalState] = useState({ taskId: '' });
 
   useEffect(() => {
     if (!tasks) {
@@ -216,7 +218,7 @@ export const TaskList = ({ category }: TaskListProps) => {
               checked={task.checked}
               category={task.category}
               limit={task.limit}
-              onDelete={() => onDelete(task.id)}
+              onDelete={() => setAlertModalState({ taskId: task.id })}
               onEdit={() => setEditModalState({ taskId: task.id })}
               onCheck={() => onCheck(task)}
             />
@@ -237,6 +239,18 @@ export const TaskList = ({ category }: TaskListProps) => {
           <AddTaskForm
             onCancel={() => setAddModalState(false)}
             onSubmitted={() => setAddModalState(false)}
+          />
+        </ModalProvider>
+      )}
+      {alertModalState.taskId && (
+        <ModalProvider position="center" onClick={() => setAlertModalState({ taskId: '' })}>
+          <Alert
+            message="この操作は取り消し出来ません。タスク「高沼カリキュラムをおわらせる」を削除します。"
+            onCancel={() => setAlertModalState({ taskId: '' })}
+            onSuccess={async () => {
+              await onDelete(alertModalState.taskId);
+              setAlertModalState({ taskId: '' });
+            }}
           />
         </ModalProvider>
       )}
