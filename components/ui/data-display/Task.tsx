@@ -1,4 +1,5 @@
 import { css, Theme } from '@emotion/react';
+import { trimStart } from 'lodash';
 import { MouseEventHandler } from 'react';
 
 import { Icon } from './Icon';
@@ -62,10 +63,10 @@ export const Task = ({
   onEdit,
   onCheck,
 }: TaskProps) => {
-  // limitの形式: 2020-5-4
+  // limitの形式: 2020-05-04
   const monthIndex = Number(limit.split('-')[1]) - 1;
   const month = monthNames[monthIndex];
-  const day = limit.split('-')[2];
+  const day = trimStart(limit.split('-')[2], '0');
 
   return (
     <div
