@@ -56,7 +56,7 @@ export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubm
 
   const onCancel: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    emitCancelEvent && emitCancelEvent();
+    emitCancelEvent?.();
   };
 
   return (
