@@ -23,15 +23,15 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ category }: TaskListProps) => {
-  const { tasks, isLoading } = useTaskList();
+  const [sortOption, setSortOption] = useState<Option>({ key: 'limit', value: 'Limit' });
+  const { tasks, isLoading } = useTaskList(sortOption.key);
 
   const theme = useTheme();
   const userToken = useRecoilValue(userTokenState);
 
   const [sortOptionsDisplay, setSortOptionsDisplay] = useState(false);
-  const [sortOption, setSortOption] = useState<Option>({ key: 'Limit', value: 'Limit' });
 
-  const [sortedTasks, setSortedTasks] = useState<AfterParseTasks>([]);
+  const [categoryTasks, setCategoryTasks] = useState<AfterParseTasks>([]);
 
   const [editModalState, setEditModalState] = useState({ taskId: '' });
   const [addModalState, setAddModalState] = useState(false);
@@ -44,41 +44,8 @@ export const TaskList = ({ category }: TaskListProps) => {
 
     const filtered = category ? tasks.filter((task) => task.category === category) : tasks;
 
-    const sortByLimit = () => {
-      const sorted = [...filtered].sort((a, b) => {
-        const aDate = new Date(a.limit);
-        const bDate = new Date(b.limit);
-        if (aDate.getTime() < bDate.getTime()) return -1;
-        if (aDate.getTime() > bDate.getTime()) return 1;
-        else return 0;
-      });
-      setSortedTasks(sorted);
-    };
-
-    const sortByCreatedAt = () => {
-      const sorted = [...filtered].sort((a, b) => {
-        if (a.created_at.getTime() < b.created_at.getTime()) return -1;
-        if (a.created_at.getTime() > b.created_at.getTime()) return 1;
-        else return 0;
-      });
-      setSortedTasks(sorted);
-    };
-
-    const sortByCategories = () => {
-      const sorted = [...filtered].sort((a, b) => {
-        return a.category.localeCompare(b.category);
-      });
-      setSortedTasks(sorted);
-    };
-
-    if (sortOption.key == 'CreatedAt') {
-      sortByCreatedAt();
-    } else if (sortOption.key == 'Categories') {
-      sortByCategories();
-    } else {
-      sortByLimit();
-    }
-  }, [category, sortOption, tasks]);
+    setCategoryTasks(filtered);
+  }, [category, tasks]);
 
   const onDelete = async (taskId: string) => {
     try {
@@ -93,9 +60,9 @@ export const TaskList = ({ category }: TaskListProps) => {
   };
 
   const options = [
-    { key: 'Limit', value: 'Limit' },
-    { key: 'CreatedAt', value: 'Created At' },
-    { key: 'Categories', value: 'Categories' },
+    { key: 'limit', value: 'Limit' },
+    { key: 'created_at', value: 'Created At' },
+    { key: 'category', value: 'Categories' },
   ];
 
   const onCheck = async (task: {
@@ -206,7 +173,7 @@ export const TaskList = ({ category }: TaskListProps) => {
           <Spinner color={theme.colors.primary.green}></Spinner>
         </div>
       ) : (
-        sortedTasks.map((task) => (
+        categoryTasks.map((task) => (
           <div
             key={task.id}
             css={css`

@@ -44,7 +44,11 @@ const tasks = [
     limit: '2020-8-23',
     created_at: '2020-03-25T08:20:11.109Z',
   },
-];
+] as const;
+
+const tasksSortWithCategory = [tasks[2], tasks[1], tasks[3], tasks[0]];
+const tasksSortWithCreatedAt = [tasks[3], tasks[2], tasks[1], tasks[0]];
+const tasksSortWithLimit = [tasks[0], tasks[1], tasks[2], tasks[3]];
 
 const task = {
   title: '{"title":"お米を買う","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
@@ -86,6 +90,9 @@ const middleware: Middleware = () => {
     const mockData: { [name: string]: unknown } = {
       '/api/tasks/aJDm3esbPPlGLKseXPXp': task,
       '/api/tasks': tasks,
+      '/api/tasks?sort=created_at': tasksSortWithCreatedAt,
+      '/api/tasks?sort=category': tasksSortWithCategory,
+      '/api/tasks?sort=limit': tasksSortWithLimit,
       '/api/categories': categories,
     };
 

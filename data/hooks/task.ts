@@ -46,10 +46,15 @@ function parseTasks(tasks: BeforeParseTasks): AfterParseTasks {
   });
 }
 
-export const useTaskList = () => {
+export const useTaskList = (sortOption?: string) => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR<BeforeParseTasks>(['/api/tasks', userToken], authenticatedFetcher);
+  let path = '/api/tasks';
+  if (sortOption) {
+    path = path.concat(`?sort=${sortOption}`);
+  }
+
+  const { data, error } = useSWR<BeforeParseTasks>([path, userToken], authenticatedFetcher);
   const parsedTasks = useMemo(() => data && parseTasks(data), [data]);
 
   return {
