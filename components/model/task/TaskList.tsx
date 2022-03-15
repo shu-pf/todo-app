@@ -33,7 +33,7 @@ export const TaskList = ({ category }: TaskListProps) => {
 
   const [sortedTasks, setSortedTasks] = useState<AfterParseTasks>([]);
 
-  const [editModalState, setEditModalState] = useState<{ taskId: string }>({ taskId: '' });
+  const [editModalState, setEditModalState] = useState({ taskId: '' });
   const [addModalState, setAddModalState] = useState(false);
   const [alertModalState, setAlertModalState] = useState({ taskId: '' });
 
