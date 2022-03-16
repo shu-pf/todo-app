@@ -37,10 +37,10 @@ const categories = [
 ];
 
 const task = {
-  title: '{"title":"お米を買う","checked":false}',
+  title: '{"title":"お米を買う","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
   category: '買い物リスト',
   limit: '2022-03-05',
-  detail: '次はあきたこまちがいいかもしれない',
+  detail: '',
 };
 
 const middleware: Middleware = () => {
@@ -50,7 +50,7 @@ const middleware: Middleware = () => {
     if (key && typeof key === 'object') {
       path = key[0];
     }
-    const mockData: { [name: string]: any } = {
+    const mockData: { [name: string]: unknown } = {
       '/api/tasks/pirgnojgn': task,
       '/api/categories': categories,
     };
@@ -84,7 +84,7 @@ Default.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story
 Default.parameters = {
   msw: {
     handlers: [
-      rest.patch(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/taskspirgnojgn`, (req, res, ctx) => {
+      rest.patch(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks/pirgnojgn`, (req, res, ctx) => {
         return res(
           ctx.status(200),
           ctx.json({

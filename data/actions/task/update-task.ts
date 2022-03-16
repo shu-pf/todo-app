@@ -31,14 +31,14 @@ interface RequestData {
 
 export const updateTask = async ({ token, task, taskId }: Params) => {
   const requestData = {
-    title: titleSerializer({ title: task.title, checked: task.checked }),
+    title: titleSerializer({ title: task.title, checked: task.checked, detail: task.detail }),
     category: task.category,
     limit: task.limit,
-    detail: task.detail,
+    detail: '',
   };
 
   const responseData = await authenticatedFetcher<ResponseData, RequestData>(
-    `/api/tasks${taskId}`,
+    `/api/tasks/${taskId}`,
     token,
     'PATCH',
     requestData

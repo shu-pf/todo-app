@@ -254,6 +254,7 @@ export const EditTaskForm = ({
           <div
             css={css`
               margin-top: 12px;
+              display: flex;
             `}
           >
             <Button

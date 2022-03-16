@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import useSWR from 'swr';
 
@@ -20,41 +21,58 @@ interface BeforeParseTask {
   detail: string;
 }
 
-function parseTasks(tasks: BeforeParseTasks) {
+export type AfterParseTasks = Array<{
+  id: string;
+  title: string;
+  checked: boolean;
+  category: string;
+  limit: string;
+  detail: string;
+  created_at: Date;
+}>;
+
+function parseTasks(tasks: BeforeParseTasks): AfterParseTasks {
   return tasks?.map((task) => {
-    const { title, checked } = titleDeserializer(task.title);
+    const { title, checked, detail } = titleDeserializer(task.title);
     return {
       id: task.id,
       title,
       checked,
       category: task.category,
       limit: task.limit,
+      detail,
       created_at: new Date(task.created_at),
     };
   });
 }
 
-export const useTaskList = () => {
+export const useTaskList = (sortOption?: string) => {
   const userToken = useRecoilValue(userTokenState);
 
-  const { data, error } = useSWR<BeforeParseTasks>(['/api/tasks', userToken], authenticatedFetcher);
+  let path = '/api/tasks';
+  if (sortOption) {
+    path = path.concat(`?sort=${sortOption}`);
+  }
+
+  const { data, error } = useSWR<BeforeParseTasks>([path, userToken], authenticatedFetcher);
+  const parsedTasks = useMemo(() => data && parseTasks(data), [data]);
 
   return {
-    tasks: data && parseTasks(data),
+    tasks: parsedTasks,
     isLoading: !error && !data,
     isError: error,
   };
 };
 
 function parseTask(task: BeforeParseTask) {
-  const { title, checked } = titleDeserializer(task.title);
+  const { title, checked, detail } = titleDeserializer(task.title);
 
   return {
     title,
     checked,
     category: task.category,
     limit: task.limit,
-    detail: task.detail,
+    detail,
   };
 }
 

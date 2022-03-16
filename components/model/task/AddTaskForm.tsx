@@ -197,6 +197,7 @@ export const AddTaskForm = ({ onCancel: emitCancelEvent, onSubmitted }: AddTaskF
         <div
           css={css`
             margin-top: 12px;
+            display: flex;
           `}
         >
           <Button

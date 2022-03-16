@@ -4,6 +4,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 import { AddTaskForm } from '../../components/model/task/AddTaskForm';
 import { EditTaskForm } from '../../components/model/task/EditTaskForm';
 import { ModalProvider } from '../../components/provider/ModalProvider';
+import { Alert } from '../../components/ui/utils/Alert';
 
 const meta: ComponentMeta<typeof ModalProvider> = {
   component: ModalProvider,
@@ -43,22 +44,27 @@ const categories = [
 ];
 
 const task = {
-  title: '{"title":"お米を買う","checked":false}',
+  title: '{"title":"お米を買う","checked":false,"detail":"次はあきたこまちがいいかもしれない"}',
   category: '買い物リスト',
   limit: '2022-03-05',
-  detail: '次はあきたこまちがいいかもしれない',
+  detail: '',
 };
 
 const middleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (key): SWRResponse<any, any> => {
-    const mockData: { [name: string]: any } = {
+    let path;
+    if (key && typeof key === 'object') {
+      path = key[0];
+    }
+
+    const mockData: { [name: string]: unknown } = {
       '/api/tasks/pirgnojgn': task,
       '/api/categories': categories,
     };
 
     return {
-      data: mockData?.[key as string],
+      data: mockData?.[path],
       error: undefined,
       mutate: () => Promise.resolve(),
       isValidating: false,
@@ -84,3 +90,11 @@ EditTaskFormModal.args = {
 EditTaskFormModal.decorators = [
   (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
 ];
+
+export const AlertModal = Template.bind({});
+AlertModal.args = {
+  position: 'center',
+  children: (
+    <Alert message="この操作は取り消し出来ません。カテゴリー「Work」を削除します。カテゴリーに登録されているタスクも全て削除されます。" />
+  ),
+};

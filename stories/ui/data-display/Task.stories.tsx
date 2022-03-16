@@ -15,7 +15,7 @@ export const Default = Template.bind({});
 Default.args = {
   title: '高沼カリキュラムを終わらせる',
   category: 'Work',
-  limit: '2020/5/4',
+  limit: '2020-05-04',
 };
 Default.parameters = {
   backgrounds: { default: 'light' },
@@ -25,7 +25,7 @@ export const Checked = Template.bind({});
 Checked.args = {
   title: '高沼カリキュラムを終わらせる',
   category: 'Work',
-  limit: '2020/5/4',
+  limit: '2020-05-04',
   checked: true,
 };
 Checked.parameters = {

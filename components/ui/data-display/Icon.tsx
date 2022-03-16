@@ -5,6 +5,7 @@ import Clear from './icons/clear.svg';
 import Create from './icons/create.svg';
 import Delete from './icons/delete.svg';
 import Error from './icons/error.svg';
+import ExpandMoreSmall from './icons/expand-more-small.svg';
 import ExpandMore from './icons/expand-more.svg';
 import Home from './icons/home.svg';
 import Kitchen from './icons/kitchen.svg';
@@ -29,6 +30,7 @@ const Icons = {
   List,
   Create,
   ExpandMore,
+  ExpandMoreSmall,
   Clear,
 } as const;
 
