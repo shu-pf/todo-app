@@ -11,3 +11,16 @@ export const successUpdateCategoryHeader = rest.patch(
     );
   }
 );
+
+export const successCreateCategoryHeader = rest.post(
+  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/categories`,
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: 'HebkGmfqSMHImF6ObgrP',
+        name: '買い物リスト',
+      })
+    );
+  }
+);

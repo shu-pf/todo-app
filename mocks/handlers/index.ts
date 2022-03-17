@@ -1,4 +1,4 @@
-import { successUpdateCategoryHeader } from './categories';
+import { successCreateCategoryHeader, successUpdateCategoryHeader } from './categories';
 import {
   errorCreateTaskHeader,
   errorUpdateTaskHeader,
@@ -14,4 +14,5 @@ export {
   errorUpdateTaskHeader,
   successDeleteTaskHandler,
   successUpdateCategoryHeader,
+  successCreateCategoryHeader,
 };

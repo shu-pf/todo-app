@@ -8,7 +8,14 @@ import {
   tasksSortWithCategory,
   tasksSortWithLimit,
   categories,
+  task,
 } from '../../mocks/data';
+import {
+  successCreateCategoryHeader,
+  successCreateTaskHeader,
+  successDeleteTaskHandler,
+  successUpdateTaskHeader,
+} from '../../mocks/handlers';
 
 const meta: ComponentMeta<typeof IndexPage> = {
   component: IndexPage,
@@ -30,6 +37,7 @@ const middleware: Middleware = () => {
       '/api/tasks?sort=created_at': tasksSortWithCreatedAt,
       '/api/tasks?sort=category': tasksSortWithCategory,
       '/api/tasks?sort=limit': tasksSortWithLimit,
+      '/api/tasks/aJDm3esbPPlGLKseXPXp': task,
     };
 
     return {
@@ -43,3 +51,13 @@ const middleware: Middleware = () => {
 
 export const Default = Template.bind({});
 Default.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>];
+Default.parameters = {
+  msw: {
+    handlers: [
+      successCreateTaskHeader,
+      successDeleteTaskHandler,
+      successUpdateTaskHeader,
+      successCreateCategoryHeader,
+    ],
+  },
+};

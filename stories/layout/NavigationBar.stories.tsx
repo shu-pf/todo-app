@@ -3,6 +3,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { NavigationBar } from '../../components/layout/NavigationBar';
 import { categories, manyCategory } from '../../mocks/data';
+import { successCreateCategoryHeader } from '../../mocks/handlers';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   component: NavigationBar,
@@ -64,6 +65,11 @@ export const Default = Template.bind({});
 Default.decorators = [
   (story) => <SWRConfig value={{ use: [successMiddleware] }}>{story()}</SWRConfig>,
 ];
+Default.parameters = {
+  msw: {
+    handlers: [successCreateCategoryHeader],
+  },
+};
 
 export const Loading = Template.bind({});
 Loading.decorators = [
