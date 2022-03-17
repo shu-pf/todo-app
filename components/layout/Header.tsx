@@ -1,11 +1,26 @@
 import { css, Theme } from '@emotion/react';
+import { useState, useEffect } from 'react';
+
+import { useCategoryList } from '../../data/hooks';
 
 /** @jsxImportSource @emotion/react */
 interface HeaderProps {
-  title: string;
+  categoryId: string;
 }
 
-export const Header = ({ title }: HeaderProps) => {
+export const Header = ({ categoryId }: HeaderProps) => {
+  const [title, setTitle] = useState('');
+  const { categories, isLoading } = useCategoryList();
+
+  useEffect(() => {
+    if (!categories) {
+      return;
+    }
+    const [category] = categories.filter((c) => c.id === categoryId);
+    if (category) setTitle(category.name);
+    else setTitle('All categories');
+  }, [categories, categoryId]);
+
   return (
     <div
       css={(theme: Theme) =>
@@ -23,7 +38,7 @@ export const Header = ({ title }: HeaderProps) => {
           font-size: 24px;
         `}
       >
-        {title}
+        {isLoading ? '' : title}
       </h1>
     </div>
   );
