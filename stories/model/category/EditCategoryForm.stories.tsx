@@ -1,9 +1,10 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { rest } from 'msw';
 import React from 'react';
 import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { EditCategoryForm } from '../../../components/model/category/EditCategoryForm';
+import { categories } from '../../../mocks/data';
+import { updateCategoryHeader } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof EditCategoryForm> = {
   component: EditCategoryForm,
@@ -12,29 +13,6 @@ const meta: ComponentMeta<typeof EditCategoryForm> = {
 export default meta;
 
 const Template: ComponentStory<typeof EditCategoryForm> = (args) => <EditCategoryForm {...args} />;
-
-const categories = [
-  {
-    id: 'oeijfeowijfwoeijk',
-    name: 'Work',
-  },
-  {
-    id: 'feoijfeifjeoifjk',
-    name: 'お買物リスト',
-  },
-  {
-    id: 'feoijfeoijfeoifj',
-    name: '買いたい',
-  },
-  {
-    id: 'fwoefjwlekffewogn',
-    name: 'House',
-  },
-  {
-    id: 'rigjrokanklrkwgnk',
-    name: 'その他',
-  },
-];
 
 const middleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,18 +45,6 @@ const loadingMiddleware: Middleware = () => {
     };
   };
 };
-
-const updateCategoryHeader = rest.patch(
-  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/categories/oeijfeowijfwoeijk`,
-  (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        name: '買い物リスト',
-      })
-    );
-  }
-);
 
 export const Default = Template.bind({});
 Default.args = {

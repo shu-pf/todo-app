@@ -2,6 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { NavigationBar } from '../../components/layout/NavigationBar';
+import { categories, manyCategory } from '../../mocks/data';
 
 const meta: ComponentMeta<typeof NavigationBar> = {
   component: NavigationBar,
@@ -10,40 +11,6 @@ const meta: ComponentMeta<typeof NavigationBar> = {
 export default meta;
 
 const Template: ComponentStory<typeof NavigationBar> = (args) => <NavigationBar {...args} />;
-
-const categories = [
-  {
-    id: 'oeijfeowijfwoeijk',
-    name: 'Work',
-  },
-  {
-    id: 'feoijfeifjeoifjk',
-    name: 'お買物リスト',
-  },
-  {
-    id: 'feoijfeoijfeoifj',
-    name: '買いたい',
-  },
-  {
-    id: 'fwoefjwlekffewogn',
-    name: 'House',
-  },
-  {
-    id: 'rigjrokanklrkwgnk',
-    name: 'その他',
-  },
-];
-
-const manyCategory = [
-  ...categories,
-  { id: 'awpfwkafewlk', name: 'その他' },
-  { id: 'fefefewfewaf', name: 'その他' },
-  { id: 'thegrgragrgr', name: 'その他' },
-  { id: 'bebebbgbtrte', name: 'その他' },
-  { id: 'ebtbgbrbrtbr', name: 'その他' },
-  { id: 'oijkmpokekll', name: 'その他' },
-  { id: 'pkmjwemrkmkw', name: 'その他' },
-];
 
 const successMiddleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

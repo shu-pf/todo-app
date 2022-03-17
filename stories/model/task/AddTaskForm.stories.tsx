@@ -1,9 +1,10 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { rest } from 'msw';
 import React from 'react';
 import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { AddTaskForm } from '../../../components/model/task/AddTaskForm';
+import { categories } from '../../../mocks/data';
+import { createTasksErrorHeader, createTasksHeader } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof AddTaskForm> = {
   component: AddTaskForm,
@@ -12,29 +13,6 @@ const meta: ComponentMeta<typeof AddTaskForm> = {
 export default meta;
 
 const Template: ComponentStory<typeof AddTaskForm> = (args) => <AddTaskForm {...args} />;
-
-const categories = [
-  {
-    id: 'oeijfeowijfwoeijk',
-    name: 'Work',
-  },
-  {
-    id: 'feoijfeifjeoifjk',
-    name: 'お買物リスト',
-  },
-  {
-    id: 'feoijfeoijfeoifj',
-    name: '買いたい',
-  },
-  {
-    id: 'fwoefjwlekffewogn',
-    name: 'House',
-  },
-  {
-    id: 'rigjrokanklrkwgnk',
-    name: 'その他',
-  },
-];
 
 const categoryMiddleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,21 +32,7 @@ Default.decorators = [
 ];
 Default.parameters = {
   msw: {
-    handlers: [
-      rest.post(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks`, (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            id: 'aJDm3esbPPlGLKseXPXp',
-            title: 'お米を買う',
-            category: '買い物リスト',
-            limit: '2020/5/4',
-            detail: '次はあきたこまちがいいかもしれない',
-            created_at: '2020-03-28T07:55:21.109Z',
-          })
-        );
-      }),
-    ],
+    handlers: [createTasksHeader],
   },
 };
 
@@ -78,15 +42,6 @@ HttpError.decorators = [
 ];
 HttpError.parameters = {
   msw: {
-    handlers: [
-      rest.post(`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/tasks`, (req, res, ctx) => {
-        return res(
-          ctx.status(401),
-          ctx.json({
-            error: 'Unauthorized',
-          })
-        );
-      }),
-    ],
+    handlers: [createTasksErrorHeader],
   },
 };
