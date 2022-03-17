@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { deleteTask, updateTask } from '../../../data/actions';
+import { useCategoryList } from '../../../data/hooks';
 import { AfterParseTasks, useTaskList } from '../../../data/hooks/task';
 import { HttpError } from '../../../data/libs/fetchers';
 import { userTokenState } from '../../../states';
@@ -19,12 +20,13 @@ import { AddTaskForm } from './AddTaskForm';
 import { EditTaskForm } from './EditTaskForm';
 
 interface TaskListProps {
-  category: string;
+  categoryId: string;
 }
 
-export const TaskList = ({ category }: TaskListProps) => {
+export const TaskList = ({ categoryId }: TaskListProps) => {
   const [sortOption, setSortOption] = useState<Option>({ key: 'limit', value: 'Limit' });
   const { tasks, isLoading } = useTaskList(sortOption.key);
+  const { categories } = useCategoryList();
 
   const theme = useTheme();
   const userToken = useRecoilValue(userTokenState);
@@ -38,14 +40,16 @@ export const TaskList = ({ category }: TaskListProps) => {
   const [alertModalState, setAlertModalState] = useState({ taskId: '' });
 
   useEffect(() => {
-    if (!tasks) {
+    if (!tasks || !categories) {
       return;
     }
 
-    const filtered = category ? tasks.filter((task) => task.category === category) : tasks;
+    const [category] = categories.filter((category) => category.id === categoryId);
+
+    const filtered = category ? tasks.filter((task) => task.category === category.name) : tasks;
 
     setCategoryTasks(filtered);
-  }, [category, tasks]);
+  }, [categories, categoryId, tasks]);
 
   const onDelete = async (taskId: string) => {
     try {

@@ -61,7 +61,7 @@ const loadingMiddleware: Middleware = () => {
 
 export const AllCategories = Template.bind({});
 AllCategories.args = {
-  category: '',
+  categoryId: '',
 };
 AllCategories.decorators = [
   (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
@@ -74,7 +74,7 @@ AllCategories.parameters = {
 
 export const Loading = Template.bind({});
 Loading.args = {
-  category: '',
+  categoryId: '',
 };
 Loading.decorators = [
   (story) => <SWRConfig value={{ use: [loadingMiddleware] }}>{story()}</SWRConfig>,
@@ -82,7 +82,7 @@ Loading.decorators = [
 
 export const SelectCategory = Template.bind({});
 SelectCategory.args = {
-  category: 'Work',
+  categoryId: 'oeijfeowijfwoeijk',
 };
 SelectCategory.decorators = [
   (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
