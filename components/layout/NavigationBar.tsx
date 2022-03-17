@@ -112,7 +112,7 @@ export const NavigationBar = ({ currentCategoryId, onSelect }: NavigationBarProp
       <div>
         <h1 css={headingStyle}>Categories</h1>
       </div>
-      <CategoryList onSelect={onSelect} />
+      <CategoryList onSelect={onSelect} currentCategoryId={currentCategoryId} />
       {displayAddCategoryForm && (
         <form onSubmit={onCreateCategory}>
           <AddCategoryInput
