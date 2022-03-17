@@ -5,7 +5,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 import { EditTaskForm } from '../../../components/model/task/EditTaskForm';
 import { categories } from '../../../mocks/data';
 import { task } from '../../../mocks/data/tasks';
-import { updateTasksErrorHeader, updateTasksHeader } from '../../../mocks/handlers';
+import { errorUpdateTaskHeader, successUpdateTaskHeader } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof EditTaskForm> = {
   component: EditTaskForm,
@@ -55,7 +55,7 @@ Default.args = {
 Default.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>];
 Default.parameters = {
   msw: {
-    handlers: [updateTasksHeader],
+    handlers: [successUpdateTaskHeader],
   },
 };
 
@@ -74,6 +74,6 @@ HttpError.args = {
 HttpError.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>];
 HttpError.parameters = {
   msw: {
-    handlers: [updateTasksErrorHeader],
+    handlers: [errorUpdateTaskHeader],
   },
 };

@@ -4,7 +4,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { EditCategoryForm } from '../../../components/model/category/EditCategoryForm';
 import { categories } from '../../../mocks/data';
-import { updateCategoryHeader } from '../../../mocks/handlers';
+import { successUpdateCategoryHeader } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof EditCategoryForm> = {
   component: EditCategoryForm,
@@ -53,7 +53,7 @@ Default.args = {
 Default.decorators = [(story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>];
 Default.parameters = {
   msw: {
-    handlers: [updateCategoryHeader],
+    handlers: [successUpdateCategoryHeader],
   },
 };
 

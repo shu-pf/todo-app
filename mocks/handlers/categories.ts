@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-export const updateCategoryHeader = rest.patch(
+export const successUpdateCategoryHeader = rest.patch(
   `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/categories/oeijfeowijfwoeijk`,
   (req, res, ctx) => {
     return res(

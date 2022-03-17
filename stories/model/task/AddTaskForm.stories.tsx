@@ -4,7 +4,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { AddTaskForm } from '../../../components/model/task/AddTaskForm';
 import { categories } from '../../../mocks/data';
-import { createTasksErrorHeader, createTasksHeader } from '../../../mocks/handlers';
+import { errorCreateTaskHeader, successCreateTaskHeader } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof AddTaskForm> = {
   component: AddTaskForm,
@@ -32,7 +32,7 @@ Default.decorators = [
 ];
 Default.parameters = {
   msw: {
-    handlers: [createTasksHeader],
+    handlers: [successCreateTaskHeader],
   },
 };
 
@@ -42,6 +42,6 @@ HttpError.decorators = [
 ];
 HttpError.parameters = {
   msw: {
-    handlers: [createTasksErrorHeader],
+    handlers: [errorCreateTaskHeader],
   },
 };

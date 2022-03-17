@@ -10,9 +10,9 @@ import {
   tasksSortWithLimit,
 } from '../../../mocks/data';
 import {
+  successCreateTaskHeader,
   successDeleteTaskHandler,
-  successTaskAddHandler,
-  successUpdateTaskHandler,
+  successUpdateTaskHeader,
 } from '../../../mocks/handlers';
 
 const meta: ComponentMeta<typeof TaskList> = {
@@ -68,7 +68,7 @@ AllCategories.decorators = [
 ];
 AllCategories.parameters = {
   msw: {
-    handlers: [successDeleteTaskHandler, successUpdateTaskHandler, successTaskAddHandler],
+    handlers: [successDeleteTaskHandler, successUpdateTaskHeader, successCreateTaskHeader],
   },
 };
 
@@ -89,6 +89,6 @@ SelectCategory.decorators = [
 ];
 SelectCategory.parameters = {
   msw: {
-    handlers: [successDeleteTaskHandler, successUpdateTaskHandler],
+    handlers: [successDeleteTaskHandler, successCreateTaskHeader],
   },
 };

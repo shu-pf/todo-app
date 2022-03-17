@@ -1,21 +1,17 @@
-import { updateCategoryHeader } from './categories';
+import { successUpdateCategoryHeader } from './categories';
 import {
-  createTasksErrorHeader,
-  createTasksHeader,
+  errorCreateTaskHeader,
+  errorUpdateTaskHeader,
+  successCreateTaskHeader,
   successDeleteTaskHandler,
-  successTaskAddHandler,
-  successUpdateTaskHandler,
-  updateTasksErrorHeader,
-  updateTasksHeader,
+  successUpdateTaskHeader,
 } from './tasks';
 
 export {
-  updateCategoryHeader,
-  createTasksHeader,
-  createTasksErrorHeader,
-  updateTasksHeader,
-  updateTasksErrorHeader,
-  successUpdateTaskHandler,
+  successCreateTaskHeader,
+  errorCreateTaskHeader,
+  successUpdateTaskHeader,
+  errorUpdateTaskHeader,
   successDeleteTaskHandler,
-  successTaskAddHandler,
+  successUpdateCategoryHeader,
 };
