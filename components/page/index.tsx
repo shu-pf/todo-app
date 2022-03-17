@@ -23,14 +23,17 @@ export const IndexPage = () => {
             grid-area: navigation;
           `}
         >
-          <NavigationBar onSelect={({ categoryId }) => setCategoryId(categoryId)} />
+          <NavigationBar
+            onSelect={({ categoryId }) => setCategoryId(categoryId)}
+            currentCategoryId={categoryId}
+          />
         </div>
         <div
           css={css`
             grid-area: header;
           `}
         >
-          <Header title="All Categories" />
+          <Header categoryId={categoryId} />
         </div>
         <main
           css={css`
@@ -39,7 +42,7 @@ export const IndexPage = () => {
             overflow: scroll;
           `}
         >
-          <TaskList category={categoryId} />
+          <TaskList categoryId={categoryId} />
         </main>
       </div>
     </>
