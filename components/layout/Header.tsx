@@ -18,7 +18,7 @@ export const Header = ({ categoryId }: HeaderProps) => {
     }
     const [category] = categories.filter((c) => c.id === categoryId);
     if (category) setTitle(category.name);
-    else setTitle('All categories');
+    else setTitle('All Categories');
   }, [categories, categoryId]);
 
   return (
