@@ -44,6 +44,10 @@ export const updateTask = async ({ token, task, taskId }: Params) => {
     requestData
   );
 
-  mutate('/api/tasks');
-  mutate(`/api/tasks/${taskId}`, responseData, false);
+  mutate(['/api/tasks', token]);
+  mutate(['/api/tasks?sort=limit', token]);
+  mutate(['/api/tasks?sort=created_at', token]);
+  mutate(['/api/tasks?sort=category', token]);
+
+  mutate([`/api/tasks/${taskId}`, token], responseData, false);
 };

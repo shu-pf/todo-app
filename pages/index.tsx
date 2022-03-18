@@ -1,22 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRecoilState } from 'recoil';
 
-import { userTokenState } from '../states';
+import { IndexPage } from '../components/page';
 
 const Home: NextPage = () => {
-  const [, setUserToken] = useRecoilState(userTokenState);
-
-  const logout = () => {
-    setUserToken('');
-  };
-
   return (
     <>
       <Head>
-        <title>Takanuma Curriculum | All Categories</title>
+        <title>Takanuma Curriculum | Tasks</title>
       </Head>
-      <button onClick={logout}>ログアウト</button>
+      <IndexPage />
     </>
   );
 };
