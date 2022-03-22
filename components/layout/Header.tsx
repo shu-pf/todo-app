@@ -23,6 +23,7 @@ export const Header = ({ categoryId, onCategoryDeleted }: HeaderProps) => {
     }
     const category = categories.find((c) => c.id === categoryId);
     if (category) setCategoryName(category.name);
+    else setCategoryName('');
   }, [categories, categoryId]);
 
   return (
