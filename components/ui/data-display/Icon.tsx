@@ -12,6 +12,7 @@ import Kitchen from './icons/kitchen.svg';
 import Layers from './icons/layers.svg';
 import List from './icons/list.svg';
 import Logout from './icons/logout.svg';
+import Pencil from './icons/pencil-outline.svg';
 import Whatshot from './icons/whatshot.svg';
 import Work from './icons/work.svg';
 
@@ -32,6 +33,7 @@ const Icons = {
   ExpandMore,
   ExpandMoreSmall,
   Clear,
+  Pencil,
 } as const;
 
 export type IconNames = keyof typeof Icons;
