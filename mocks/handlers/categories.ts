@@ -24,3 +24,15 @@ export const successCreateCategoryHeader = rest.post(
     );
   }
 );
+
+export const successDeleteCategoryHeader = rest.delete(
+  `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/categories/oeijfeowijfwoeijk`,
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        message: 'Successfully deleted category.',
+      })
+    );
+  }
+);

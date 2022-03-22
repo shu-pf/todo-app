@@ -13,6 +13,7 @@ import {
 import {
   successCreateCategoryHeader,
   successCreateTaskHeader,
+  successDeleteCategoryHeader,
   successDeleteTaskHandler,
   successUpdateTaskHeader,
 } from '../../mocks/handlers';
@@ -58,6 +59,7 @@ Default.parameters = {
       successDeleteTaskHandler,
       successUpdateTaskHeader,
       successCreateCategoryHeader,
+      successDeleteCategoryHeader,
     ],
   },
 };

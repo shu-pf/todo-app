@@ -9,9 +9,10 @@ import { Icon } from '../ui/data-display/Icon';
 /** @jsxImportSource @emotion/react */
 interface HeaderProps {
   categoryId: string;
+  onCategoryDeleted?: () => void;
 }
 
-export const Header = ({ categoryId }: HeaderProps) => {
+export const Header = ({ categoryId, onCategoryDeleted }: HeaderProps) => {
   const [categoryName, setCategoryName] = useState('');
   const [displayEditCategoryModal, setDisplayEditCategoryModal] = useState(false);
   const { categories, isLoading } = useCategoryList();
@@ -51,6 +52,8 @@ export const Header = ({ categoryId }: HeaderProps) => {
                 css={css`
                   margin-left: 4px;
                   cursor: pointer;
+                  display: flex;
+                  align-items: center;
                 `}
                 onClick={() => setDisplayEditCategoryModal(true)}
               >
@@ -66,6 +69,10 @@ export const Header = ({ categoryId }: HeaderProps) => {
             categoryId={categoryId}
             onCancel={() => setDisplayEditCategoryModal(false)}
             onSubmitted={() => setDisplayEditCategoryModal(false)}
+            onDeleted={() => {
+              setDisplayEditCategoryModal(false);
+              onCategoryDeleted?.();
+            }}
           />
         </ModalProvider>
       )}

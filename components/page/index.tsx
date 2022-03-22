@@ -33,7 +33,7 @@ export const IndexPage = () => {
             grid-area: header;
           `}
         >
-          <Header categoryId={categoryId} />
+          <Header categoryId={categoryId} onCategoryDeleted={() => setCategoryId('')} />
         </div>
         <main
           css={css`
