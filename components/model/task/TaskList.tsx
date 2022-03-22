@@ -44,7 +44,7 @@ export const TaskList = ({ categoryId }: TaskListProps) => {
       return;
     }
 
-    const [category] = categories.filter((category) => category.id === categoryId);
+    const category = categories.find((category) => category.id === categoryId);
 
     const filtered = category ? tasks.filter((task) => task.category === category.name) : tasks;
 
