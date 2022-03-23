@@ -35,4 +35,7 @@ export const defaultTheme = {
       lighterLightGray: '#DADADA',
     },
   },
+  zIndex: {
+    modal: 1000,
+  },
 } as const;

@@ -25,6 +25,7 @@ export const ModalProvider = ({ position = 'center', children, onClick }: ModalP
     <div
       css={(theme: Theme) => [
         css`
+          z-index: ${theme.zIndex.modal};
           position: fixed;
           top: 0;
           left: 0;
