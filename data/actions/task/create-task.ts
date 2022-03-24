@@ -40,5 +40,8 @@ export const createTask = async ({ token, task }: Params) => {
 
   await authenticatedFetcher<ResponseData, RequestData>('/api/tasks', token, 'POST', requestData);
 
-  mutate('/api/tasks');
+  mutate(['/api/tasks', token]);
+  mutate(['/api/tasks?sort=limit', token]);
+  mutate(['/api/tasks?sort=created_at', token]);
+  mutate(['/api/tasks?sort=category', token]);
 };

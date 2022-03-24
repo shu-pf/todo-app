@@ -140,6 +140,7 @@ export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubm
             css={css`
               padding-top: 12px;
               border-top: 1px solid ${theme.colors.component.lighterLightGray};
+              display: flex;
             `}
           >
             <Button

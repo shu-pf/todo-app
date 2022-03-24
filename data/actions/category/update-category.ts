@@ -24,5 +24,5 @@ export const updateCategory = async ({ categoryId, token, name }: Params) => {
     { name }
   );
 
-  mutate('/api/categories');
+  mutate(['/api/categories', token]);
 };

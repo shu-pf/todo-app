@@ -2,6 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Middleware, SWRResponse, SWRConfig } from 'swr';
 
 import { CategoryList } from '../../../components/layout/NavigationBar/CategoryList';
+import { categories } from '../../../mocks/data';
 
 const meta: ComponentMeta<typeof CategoryList> = {
   component: CategoryList,
@@ -16,29 +17,6 @@ const meta: ComponentMeta<typeof CategoryList> = {
 export default meta;
 
 const Template: ComponentStory<typeof CategoryList> = (args) => <CategoryList {...args} />;
-
-const categories = [
-  {
-    id: 'oeijfeowijfwoeijk',
-    name: 'Work',
-  },
-  {
-    id: 'feoijfeifjeoifjk',
-    name: 'お買物リスト',
-  },
-  {
-    id: 'feoijfeoijfeoifj',
-    name: '買いたい',
-  },
-  {
-    id: 'fwoefjwlekffewogn',
-    name: 'House',
-  },
-  {
-    id: 'rigjrokanklrkwgnk',
-    name: 'その他',
-  },
-];
 
 const successMiddleware: Middleware = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

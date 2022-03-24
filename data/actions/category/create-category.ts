@@ -19,5 +19,5 @@ interface ResponseData {
 export const createCategory = async ({ name, token }: Params) => {
   await authenticatedFetcher<ResponseData, RequestData>('/api/categories', token, 'POST', { name });
 
-  mutate('/api/categories');
+  mutate(['/api/categories', token]);
 };
