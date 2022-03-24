@@ -2,7 +2,7 @@ import { css, useTheme } from '@emotion/react';
 import { FormEventHandler, MouseEventHandler, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { updateCategory } from '../../../data/actions';
+import { deleteCategory, updateCategory } from '../../../data/actions';
 import { useCategoryList } from '../../../data/hooks';
 import { HttpError } from '../../../data/libs/fetchers';
 import { userTokenState } from '../../../states';
@@ -16,6 +16,7 @@ interface Props {
   categoryId: string;
   onCancel?: () => void;
   onSubmitted?: () => void;
+  onDeleted?: () => void;
 }
 
 const labelStyle = css`
@@ -23,7 +24,12 @@ const labelStyle = css`
   font-weight: 500;
 `;
 
-export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubmitted }: Props) => {
+export const EditCategoryForm = ({
+  categoryId,
+  onCancel: emitCancelEvent,
+  onSubmitted,
+  onDeleted,
+}: Props) => {
   const theme = useTheme();
   const { categories, isLoading } = useCategoryList();
   const userToken = useRecoilValue(userTokenState);
@@ -57,6 +63,21 @@ export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubm
   const onCancel: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     emitCancelEvent?.();
+  };
+
+  const onDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+
+    try {
+      await deleteCategory({ categoryId, token: userToken });
+      onDeleted?.();
+    } catch (e) {
+      if (e instanceof HttpError) {
+        window.alert('削除に失敗しました。Error Message: ' + e.data.error);
+        return;
+      }
+      throw e;
+    }
   };
 
   return (
@@ -113,7 +134,6 @@ export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubm
           <div
             css={css`
               margin-bottom: 12px;
-              position: relative;
             `}
           >
             <label>
@@ -134,6 +154,13 @@ export const EditCategoryForm = ({ categoryId, onCancel: emitCancelEvent, onSubm
                 required
               />
             </label>
+            <div
+              css={css`
+                margin-top: 8px;
+              `}
+            >
+              <Button label="削除" variant="error" width="100%" size="small" onClick={onDelete} />
+            </div>
           </div>
           {/* footer */}
           <div

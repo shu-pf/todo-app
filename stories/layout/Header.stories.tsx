@@ -3,6 +3,7 @@ import { Middleware, SWRConfig, SWRResponse } from 'swr';
 
 import { Header } from '../../components/layout/Header';
 import { categories } from '../../mocks/data';
+import { successUpdateCategoryHeader, successDeleteCategoryHeader } from '../../mocks/handlers';
 
 const meta: ComponentMeta<typeof Header> = {
   component: Header,
@@ -42,3 +43,8 @@ SelectCategory.args = {
 SelectCategory.decorators = [
   (story) => <SWRConfig value={{ use: [middleware] }}>{story()}</SWRConfig>,
 ];
+SelectCategory.parameters = {
+  msw: {
+    handlers: [successUpdateCategoryHeader, successDeleteCategoryHeader],
+  },
+};
